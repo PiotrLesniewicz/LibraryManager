@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e30a9f42-b2a7-415f-ba09-145c7ecd33e2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/ApplicationRunning.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/_ApplicationMarker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/configuration/ApplicationConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/configuration/PersistenceJpaRepositories.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/AddressEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/AuthorEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/BookEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/BookItemEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/CategoryEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LibrarianEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LoanEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LoanPenaltyEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/OpinionEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/PublisherEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/ReservationEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/UserEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/_EntityMarker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/LibraryManagerERD.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_10__library_manager_create_table_books_publishers_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_11__library_manager_create_table_opinions_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_12__library_manager_create_table_book_item_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_13__library_manager_create_table_reservation_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_14_library_manager_create_table_loan_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_15_library_manager_create_table_loan_penatly_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_1__library_manager_create_table_address_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_2__library_manager_create_table_users_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_3__library_manager_create_table_librarian_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_4__library_manager_create_table_books_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_5__library_manager_create_table_categories_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_6__library_manager_create_table_books_categories_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_7__library_manager_create_table_authors_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_8__library_manager_create_table_books_authors_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_9__library_manager_create_table_publishers_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/library_manager_drop_all_tabels_ddl.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/library/LibraryManagerSimulationTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LibraryManager" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LibraryManager" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="LibraryManager" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/6.2.3/b7b3eedf62532165d74857e4a653cf16660113f9/spring-context-6.2.3-sources.jar!/org/springframework/context/annotation/ComponentScan.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/6.2.3/b7b3eedf62532165d74857e4a653cf16660113f9/spring-context-6.2.3-sources.jar!/org/springframework/context/annotation/Configuration.java" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2uRRa4WNGIvfFQ5irq5FG4J6Qod" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.AppTest.test.executor": "Run",
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.LibraryManager [:org.library.ApplicationRunning.main()].executor": "Run",
+    "Gradle.LibraryManager [buildDependents].executor": "Run",
+    "Gradle.LibraryManager [build].executor": "Run",
+    "Gradle.LibraryManager [check].executor": "Run",
+    "Gradle.LibraryManager [clean test].executor": "Run",
+    "Gradle.LibraryManager [clean].executor": "Run",
+    "Gradle.LibraryManager [compileTestJava].executor": "Run",
+    "Gradle.LibraryManager [jar].executor": "Run",
+    "Gradle.LibraryManager [testClasses].executor": "Run",
+    "Gradle.LibraryManager [test].executor": "Run",
+    "Gradle.LibraryManager [updateDaemonJvm].executor": "Run",
+    "Gradle.LibraryManagerSimulationTest.test.executor": "Run",
+    "Gradle.LibraryManagerTest.executor": "Run",
+    "Gradle.LibraryManagerTest.test (1).executor": "Run",
+    "Gradle.LibraryManagerTest.test.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Programowanie - nauka/Projekty/Zajavka/Projects/Test",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.library.infrastructure.configuration" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager" />
+      <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager\src" />
+    </key>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="gradle compileTestJava" />
+      <command value="gradle clean test --info" />
+      <command value="gradle test --debug" />
+    </option>
+  </component>
+  <component name="RunManager" selected="Gradle.LibraryManagerSimulationTest.test">
+    <configuration name="LibraryManager [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LibraryManager [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LibraryManager [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LibraryManager [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="--debug" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LibraryManagerSimulationTest.test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.library.LibraryManagerSimulationTest.test&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.LibraryManagerSimulationTest.test" />
+        <item itemvalue="Gradle.LibraryManager [build]" />
+        <item itemvalue="Gradle.LibraryManager [clean]" />
+        <item itemvalue="Gradle.LibraryManager [test]" />
+        <item itemvalue="Gradle.LibraryManager [jar]" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e30a9f42-b2a7-415f-ba09-145c7ecd33e2" name="Changes" comment="" />
+      <created>1742209461016</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1742209461016</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/LibraryManager$LibraryManagerSimulationTest_test.ic" NAME="LibraryManagerSimulationTest.test Coverage Results" MODIFIED="1742306413452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+  </component>
+</project>

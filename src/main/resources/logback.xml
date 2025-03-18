@@ -1,0 +1,29 @@
+<configuration>
+    <!-- Konfiguracja encodera dla czytelnych logów -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Appender zapisujący logi do pliku -->
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <!--  <append>false</append>    ustawienie nadpisuje logi w pliku przy każdorazowym uruchomieniu  -->
+        <append>false</append>
+        <file>application.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+<!-- Szczegóły dotyczące bindowania (bind param [1] as [VARCHAR] - [value]) parametrów w zapytaniach SQL generowanych przez Hibernate-->
+    <logger name="org.hibernate.orm.jdbc.bind" additivity="false" level="TRACE">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <!-- Logowanie na poziomie INFO na konsolę -->
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>
