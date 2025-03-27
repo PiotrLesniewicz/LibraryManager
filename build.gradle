@@ -23,6 +23,9 @@ dependencies {
     implementation "org.postgresql:postgresql:$postgresqlVersion"
     implementation "ch.qos.logback:logback-classic:$logbackVersion"
 
+    implementation "org.mapstruct:mapstruct:$mapstructVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapstructVersion"
+
     implementation "org.springframework:spring-core:$springVersion"
     implementation "org.springframework:spring-beans:$springVersion"
     implementation "org.springframework:spring-context:$springVersion"
@@ -46,6 +49,7 @@ dependencies {
     testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
     testImplementation "org.springframework:spring-test:$springVersion"
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.assertj:assertj-core:$assertJVersion"
     testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
     testImplementation "org.testcontainers:postgresql:$testcontainersVersion"
 

@@ -31,7 +31,7 @@ public class LoanEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "loan")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "loan")
     private Set<LoanPenaltyEntity> loanPenalties;
 
     @ManyToOne(fetch = FetchType.LAZY)

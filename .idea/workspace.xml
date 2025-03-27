@@ -4,60 +4,66 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e30a9f42-b2a7-415f-ba09-145c7ecd33e2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/ApplicationRunning.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/_ApplicationMarker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/configuration/ApplicationConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/configuration/PersistenceJpaRepositories.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/AddressEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/AuthorEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/BookEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/BookItemEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/CategoryEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LibrarianEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LoanEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LoanPenaltyEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/OpinionEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/PublisherEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/ReservationEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/UserEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/_EntityMarker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/LibraryManagerERD.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_10__library_manager_create_table_books_publishers_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_11__library_manager_create_table_opinions_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_12__library_manager_create_table_book_item_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_13__library_manager_create_table_reservation_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_14_library_manager_create_table_loan_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_15_library_manager_create_table_loan_penatly_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_1__library_manager_create_table_address_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_2__library_manager_create_table_users_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_3__library_manager_create_table_librarian_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_4__library_manager_create_table_books_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_5__library_manager_create_table_categories_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_6__library_manager_create_table_books_categories_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_7__library_manager_create_table_authors_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_8__library_manager_create_table_books_authors_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_9__library_manager_create_table_publishers_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/library_manager_drop_all_tabels_ddl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/org/library/LibraryManagerSimulationTest.java" afterDir="false" />
+    <list default="true" id="e30a9f42-b2a7-415f-ba09-145c7ecd33e2" name="Changes" comment="Set up database schema, entities, and Spring context&#10;&#10;- Created ERD model for database schema.&#10;- Added Flyway migration SQL scripts to create database tables.&#10;- Created and mapped Java entities to database tables.&#10;- Set up Spring context and initialized required Beans for application startup.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/exception/AddressMissingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/exception/LibrarianMissingException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/exception/UserValidationException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Author.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/BookItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Librarian.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Loan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/LoanPenalty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Opinion.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Publisher.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Reservation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/model/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/AccountService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/AddressResolver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/AddressService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/LibrarianService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/repository/AddressRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/repository/LibraryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/repository/_JpaRepositoriesMarker.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/AddressEntityMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/LibrarianEntityMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/UserEntityMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/library/configuration/TestContainerConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/library/data/PreparationDataService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/library/integration/AccountServiceTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/org/library/unit/AccountServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/configuration/PersistenceJpaRepositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/configuration/PersistenceJpaRepositories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/AddressEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/AddressEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LibrarianEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LibrarianEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LoanEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/LoanEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/ReservationEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/ReservationEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_2__library_manager_create_table_users_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_2__library_manager_create_table_users_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V1_0__library_manager_insert_data_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V1_0__library_manager_insert_data_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/library/LibraryManagerSimulationTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/database.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/database.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/logback.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager">
+    <option name="groupingKeys">
+      <option value="directory" />
+    </option>
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -82,12 +88,6 @@
                 <item name="LibraryManager" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="LibraryManager" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -98,7 +98,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Exception" />
         <option value="Class" />
       </list>
     </option>
@@ -106,12 +109,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;PiotrLesniewicz&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/PiotrLesniewicz/LibraryManager.git&quot;,
+    &quot;accountId&quot;: &quot;258ca3a7-cd30-4566-a3c5-097c9ded0f9e&quot;
+  }
+}</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/test/java/org/library/integration/AccountServiceTest.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/6.2.3/b7b3eedf62532165d74857e4a653cf16660113f9/spring-context-6.2.3-sources.jar!/org/springframework/context/annotation/ComponentScan.java" root0="FORCE_HIGHLIGHTING" />
     <setting file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/6.2.3/b7b3eedf62532165d74857e4a653cf16660113f9/spring-context-6.2.3-sources.jar!/org/springframework/context/annotation/Configuration.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -121,47 +137,72 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.AppTest.test.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.LibraryManager [:org.library.ApplicationRunning.main()].executor": "Run",
-    "Gradle.LibraryManager [buildDependents].executor": "Run",
-    "Gradle.LibraryManager [build].executor": "Run",
-    "Gradle.LibraryManager [check].executor": "Run",
-    "Gradle.LibraryManager [clean test].executor": "Run",
-    "Gradle.LibraryManager [clean].executor": "Run",
-    "Gradle.LibraryManager [compileTestJava].executor": "Run",
-    "Gradle.LibraryManager [jar].executor": "Run",
-    "Gradle.LibraryManager [testClasses].executor": "Run",
-    "Gradle.LibraryManager [test].executor": "Run",
-    "Gradle.LibraryManager [updateDaemonJvm].executor": "Run",
-    "Gradle.LibraryManagerSimulationTest.test.executor": "Run",
-    "Gradle.LibraryManagerTest.executor": "Run",
-    "Gradle.LibraryManagerTest.test (1).executor": "Run",
-    "Gradle.LibraryManagerTest.test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Programowanie - nauka/Projekty/Zajavka/Projects/Test",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.AccountServiceTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.givenExistingAddress_whenAddingUser_thenSuccess.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountServiceTest.shouldCorrectlyUpdateAddress_WhenExistUserHaveNewAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.shouldCorrectlyUpdateUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeMoreThanOne.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeNotEqualsOne.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasNoLibrarians.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.whenAddingUser_thenNewLibrarianIsCreatedAndAssigned.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AppTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build LibraryManager.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CreateUserServiceIntegrationTest.addUserWhenDoesNotExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CreateUserServiceIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CreateUserServiceIntegrationTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [:org.library.ApplicationRunning.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [buildDependents].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [check].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [clean test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [clean].executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.LibraryManager [compileTestJava].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [testClasses].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [updateDaemonJvm].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManagerSimulationTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManagerTest.test (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManagerTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Programowanie - nauka/Projekty/Personal/LibraryManager/src/main/java/org/library/domain&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.library.domain.service" />
       <recent name="org.library.infrastructure.configuration" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Programowanie - nauka\Projekty\Personal\LibraryManager\src\main\java\org\library\domain" />
+      <recent name="C:\Programowanie - nauka\Projekty\Personal\LibraryManager\src\test\resources" />
       <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager" />
       <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager\src" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.library.domain.service" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -171,96 +212,8 @@
       <command value="gradle test --debug" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.LibraryManagerSimulationTest.test">
-    <configuration name="LibraryManager [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LibraryManager [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="clean" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LibraryManager [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jar" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LibraryManager [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--debug" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="LibraryManagerSimulationTest.test" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.AccountServiceTest">
+    <configuration name="AccountServiceTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -273,7 +226,103 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.library.LibraryManagerSimulationTest.test&quot;" />
+            <option value="&quot;org.library.integration.AccountServiceTest&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="AccountServiceTest.givenExistingAddress_whenAddingUser_thenSuccess" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.library.integration.AccountServiceTest.givenExistingAddress_whenAddingUser_thenSuccess&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="AccountServiceTest.shouldCorrectlyUpdateAddress_WhenExistUserHaveNewAddress" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.library.integration.AccountServiceTest.shouldCorrectlyUpdateAddress_WhenExistUserHaveNewAddress&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="AccountServiceTest.shouldCorrectlyUpdateUser" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.library.integration.AccountServiceTest.shouldCorrectlyUpdateUser&quot;" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>true</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="AccountServiceTest.whenAddingUser_thenNewLibrarianIsCreatedAndAssigned" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" value="" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":test" />
+            <option value="--tests" />
+            <option value="&quot;org.library.integration.AccountServiceTest.whenAddingUser_thenNewLibrarianIsCreatedAndAssigned&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -286,11 +335,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.LibraryManagerSimulationTest.test" />
-        <item itemvalue="Gradle.LibraryManager [build]" />
-        <item itemvalue="Gradle.LibraryManager [clean]" />
-        <item itemvalue="Gradle.LibraryManager [test]" />
-        <item itemvalue="Gradle.LibraryManager [jar]" />
+        <item itemvalue="Gradle.AccountServiceTest" />
+        <item itemvalue="Gradle.AccountServiceTest.givenExistingAddress_whenAddingUser_thenSuccess" />
+        <item itemvalue="Gradle.AccountServiceTest.shouldCorrectlyUpdateAddress_WhenExistUserHaveNewAddress" />
+        <item itemvalue="Gradle.AccountServiceTest.shouldCorrectlyUpdateUser" />
+        <item itemvalue="Gradle.AccountServiceTest.whenAddingUser_thenNewLibrarianIsCreatedAndAssigned" />
       </list>
     </recent_temporary>
   </component>
@@ -303,9 +352,67 @@
       <option name="presentableId" value="Default" />
       <updated>1742209461016</updated>
     </task>
+    <task id="LOCAL-00001" summary="Set up database schema, entities, and Spring context&#10;&#10;- Created ERD model for database schema.&#10;- Added Flyway migration SQL scripts to create database tables.&#10;- Created and mapped Java entities to database tables.&#10;- Set up Spring context and initialized required Beans for application startup.">
+      <option name="closed" value="true" />
+      <created>1742312682384</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1742312682384</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Set up database schema, entities, and Spring context&#10;&#10;- Created ERD model for database schema.&#10;- Added Flyway migration SQL scripts to create database tables.&#10;- Created and mapped Java entities to database tables.&#10;- Set up Spring context and initialized required Beans for application startup.">
+      <option name="closed" value="true" />
+      <created>1742313191440</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1742313191440</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Set up database schema, entities, and Spring context&#10;&#10;- Created ERD model for database schema.&#10;- Added Flyway migration SQL scripts to create database tables.&#10;- Created and mapped Java entities to database tables.&#10;- Set up Spring context and initialized required Beans for application startup.">
+      <option name="closed" value="true" />
+      <created>1742313420557</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1742313420557</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Set up database schema, entities, and Spring context&#10;&#10;- Created ERD model for database schema.&#10;- Added Flyway migration SQL scripts to create database tables.&#10;- Created and mapped Java entities to database tables.&#10;- Set up Spring context and initialized required Beans for application startup.">
+      <option name="closed" value="true" />
+      <created>1742322818537</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1742322818537</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Set up database schema, entities, and Spring context&#10;&#10;- Created ERD model for database schema.&#10;- Added Flyway migration SQL scripts to create database tables.&#10;- Created and mapped Java entities to database tables.&#10;- Set up Spring context and initialized required Beans for application startup." />
+    <option name="LAST_COMMIT_MESSAGE" value="Set up database schema, entities, and Spring context&#10;&#10;- Created ERD model for database schema.&#10;- Added Flyway migration SQL scripts to create database tables.&#10;- Created and mapped Java entities to database tables.&#10;- Set up Spring context and initialized required Beans for application startup." />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="GradleRunConfiguration">
+        <watch expression="expected.address" />
+        <watch expression="savedUser" />
+        <watch expression="initCountLibrarian" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/LibraryManager$LibraryManagerSimulationTest_test.ic" NAME="LibraryManagerSimulationTest.test Coverage Results" MODIFIED="1742306413452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
+    <SUITE FILE_PATH="coverage/LibraryManager$AccountServiceTest.ic" NAME="AccountServiceTest Coverage Results" MODIFIED="1742627116966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true" />
   </component>
 </project>
