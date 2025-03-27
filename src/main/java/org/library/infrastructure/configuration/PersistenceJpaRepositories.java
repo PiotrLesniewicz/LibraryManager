@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.flywaydb.core.Flyway;
 import org.hibernate.cfg.Environment;
 import org.library.infrastructure.database.entity._EntityMarker;
+import org.library.infrastructure.database.repository._JpaRepositoriesMarker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -21,7 +22,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories
+@EnableJpaRepositories(basePackageClasses = _JpaRepositoriesMarker.class)
 @EnableTransactionManagement
 @RequiredArgsConstructor
 @PropertySource({"classpath:database.properties"})
@@ -44,7 +45,6 @@ public class PersistenceJpaRepositories {
     public Properties jpaProperties() {
         Properties properties = new Properties();
         properties.setProperty(Environment.HBM2DDL_AUTO, environment.getProperty("hibernate.hbm2ddl.auto"));
-        properties.setProperty(Environment.DIALECT, environment.getProperty("hibernate.dialect"));
         properties.setProperty(Environment.SHOW_SQL, environment.getProperty("hibernate.show_sql"));
         properties.setProperty(Environment.FORMAT_SQL, environment.getProperty("hibernate.format_sql"));
         return properties;

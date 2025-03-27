@@ -27,7 +27,7 @@ public class LibrarianEntity {
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private UserEntity user;
 }

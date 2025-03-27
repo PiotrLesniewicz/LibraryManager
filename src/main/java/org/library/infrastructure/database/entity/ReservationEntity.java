@@ -34,11 +34,11 @@ public class ReservationEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_item_id", nullable = false)
     private BookItemEntity bookItem;
 }

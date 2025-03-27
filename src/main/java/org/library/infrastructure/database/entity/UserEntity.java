@@ -46,12 +46,12 @@ public class UserEntity {
     @Column(name = "role", nullable = false)
     private String role;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity address;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
-    private LibrarianEntity librarian;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<LibrarianEntity> librarians;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<ReservationEntity> reservations;

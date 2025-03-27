@@ -33,6 +33,6 @@ public class AddressEntity {
     @Column(name = "post_code", nullable = false)
     private String postCode;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "address", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "address")
     private Set<UserEntity> users;
 }
