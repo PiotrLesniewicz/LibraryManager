@@ -16,18 +16,18 @@
         </encoder>
     </appender>
 
-<!--    &lt;!&ndash;pokazuje tylko zapytania SQL.&ndash;&gt;-->
-<!--    <logger name="org.hibernate.SQL" level="DEBUG"/>-->
-<!--    &lt;!&ndash;pokazuje wartości parametrów.&ndash;&gt;-->
-<!--    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>-->
-<!--    &lt;!&ndash; Szczegóły dotyczące bindowania (bind param [1] as [VARCHAR] - [value]) parametrów w zapytaniach SQL generowanych przez Hibernate&ndash;&gt;-->
-    <logger name="org.hibernate.orm.jdbc.bind" additivity="false" level="TRACE">
-        <appender-ref ref="CONSOLE"/>
-    </logger>
+    <!--    &lt;!&ndash;pokazuje tylko zapytania SQL.&ndash;&gt;-->
+    <!--    <logger name="org.hibernate.SQL" level="DEBUG"/>-->
+    <!--    &lt;!&ndash;pokazuje wartości parametrów.&ndash;&gt;-->
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+    <!--    &lt;!&ndash; Szczegóły dotyczące bindowania (bind param [1] as [VARCHAR] - [value]) parametrów w zapytaniach SQL generowanych przez Hibernate&ndash;&gt;-->
+        <logger name="org.hibernate.orm.jdbc.bind" additivity="false" level="TRACE">
+            <appender-ref ref="CONSOLE"/>
+        </logger>
 
     <!-- Logowanie na poziomie INFO na konsolę -->
     <root level="info">
         <appender-ref ref="CONSOLE"/>
-<!--        <appender-ref ref="FILE"/>-->
+        <!--        <appender-ref ref="FILE"/>-->
     </root>
 </configuration>

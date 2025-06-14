@@ -7,16 +7,14 @@ import java.util.Arrays;
 
 @Getter
 @RequiredArgsConstructor
-public enum Role {
+public enum UserRole {
     USER("user"),
-    LIBRARIAN("librarian"),
-    ADMIN("admin"),
-    TECHNIC("technic");
+    LIBRARIAN("librarian");
 
     private final String value;
 
-    public static Role fromString(String value) {
-        return Arrays.stream(Role.values())
+    public static UserRole fromString(String value) {
+        return Arrays.stream(UserRole.values())
                 .filter(role -> role.getValue().equalsIgnoreCase(value))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Unknown role: [%s]".formatted(value)));

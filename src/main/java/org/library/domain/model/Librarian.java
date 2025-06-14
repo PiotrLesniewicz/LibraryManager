@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class Librarian {
 
     Integer librarianId;
-    Role role;
+    LibrarianRole librarianRole;
     LocalDate hireDate;
     User user;
 }

@@ -10,7 +10,7 @@ import java.util.Set;
 @Setter
 @ToString(of = {"userName", "name", "surname", "email"})
 @Builder
-@EqualsAndHashCode(of = {"userName", "email"})
+@EqualsAndHashCode(of = "userId")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -44,18 +44,22 @@ public class UserEntity {
     private LocalDate membershipDate;
 
     @Column(name = "role", nullable = false)
-    private String role;
+    private String userRole;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity address;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<LibrarianEntity> librarians;
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    private LibrarianEntity librarian;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<ReservationEntity> reservations;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<LoanEntity> loans;
+
+    // todo tymczasowo CascadeType.REMOVE, do refaktoru – docelowo ręczne zarządzanie w serwisie.
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Set<OpinionEntity> opinions;
 }

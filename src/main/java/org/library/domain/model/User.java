@@ -1,20 +1,18 @@
 package org.library.domain.model;
 
-import lombok.Builder;
-import lombok.Value;
-import lombok.With;
-import org.library.infrastructure.database.entity.LibrarianEntity;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @With
 @Value
 @Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(exclude = {"address", "librarian", "reservations", "loans"})
 public class User {
 
+    @EqualsAndHashCode.Include
     Integer userId;
     String userName;
     String name;
@@ -23,16 +21,10 @@ public class User {
     String password;
     String phoneNumber;
     LocalDate membershipDate;
-    Role role;
+    UserRole userRole;
     Address address;
-    Set<Librarian> librarians;
+    Librarian librarian;
     Set<Reservation> reservations;
     Set<Loan> loans;
-
-    public Set<Librarian> getLibrarians(){
-        if (Objects.isNull(librarians)){
-            return new HashSet<>();
-        }
-        return librarians;
-    }
+    Set<Opinion> opinions;
 }

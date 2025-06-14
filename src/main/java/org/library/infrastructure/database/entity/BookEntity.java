@@ -34,7 +34,7 @@ public class BookEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "book")
     private Set<BookItemEntity> bookItems;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "books_authors",
             joinColumns = @JoinColumn(name = "book_id", nullable = false),
@@ -43,7 +43,7 @@ public class BookEntity {
     )
     private Set<AuthorEntity> authors;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
             name = "books_categories",
             joinColumns = @JoinColumn(name = "book_id", nullable = false),

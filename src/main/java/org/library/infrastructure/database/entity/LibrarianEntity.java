@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@ToString(of = {"role"})
+@ToString(of = {"librarianRole"})
 @Builder
 @EqualsAndHashCode(of = "librarianId")
 @AllArgsConstructor
@@ -22,12 +22,12 @@ public class LibrarianEntity {
     private Integer librarianId;
 
     @Column(name = "role", nullable = false)
-    private String role;
+    private String librarianRole;
 
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false, unique = true)
     private UserEntity user;
 }

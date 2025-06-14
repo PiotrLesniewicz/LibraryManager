@@ -1,8 +1,8 @@
 package org.library.mapper;
 
 import org.library.domain.model.Address;
-import org.library.domain.model.Role;
 import org.library.domain.model.User;
+import org.library.domain.model.UserRole;
 import org.library.infrastructure.database.entity.AddressEntity;
 import org.library.infrastructure.database.entity.UserEntity;
 import org.mapstruct.Mapper;
@@ -12,7 +12,7 @@ import org.mapstruct.ReportingPolicy;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Mapper(componentModel = "spring",unmappedSourcePolicy = ReportingPolicy.WARN)
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.WARN)
 public interface AddressEntityMapper {
 
     AddressEntity mapToEntity(Address address);
@@ -31,7 +31,7 @@ public interface AddressEntityMapper {
                         .password(entity.getPassword())
                         .phoneNumber(entity.getPhoneNumber())
                         .membershipDate(entity.getMembershipDate())
-                        .role(Role.fromString(entity.getRole()))
+                        .userRole(UserRole.fromString(entity.getUserRole()))
                         .build())
                 .collect(Collectors.toSet());
     }
