@@ -31,9 +31,9 @@ INSERT INTO users (user_name, name, surname, email, password, phone_number, memb
 ('user20', 'Rachel', 'Allen', 'rachel.allen20@example.com', 'password20', '1234567809', '2025-03-18', 'user', 2);
 
 INSERT INTO librarian (user_id, role, hire_date) VALUES
-(5, 'Head Librarian', '2022-01-01'),
-(8, 'Assistant Librarian', '2023-05-15'),
-(12, 'Library Technician', '2021-09-20');
+(5, 'ADMIN', '2022-01-01'),
+(8, 'TECHNIC', '2023-05-15'),
+(12, 'ASSISTANT', '2021-09-20');
 
 INSERT INTO books (title, isbn) VALUES
 ('Book Title 1', '978-1234567890'),

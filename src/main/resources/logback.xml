@@ -16,7 +16,7 @@
         </encoder>
     </appender>
 
-<!-- Szczegóły dotyczące bindowania (bind param [1] as [VARCHAR] - [value]) parametrów w zapytaniach SQL generowanych przez Hibernate-->
+    <!-- Szczegóły dotyczące bindowania (bind param [1] as [VARCHAR] - [value]) parametrów w zapytaniach SQL generowanych przez Hibernate-->
     <logger name="org.hibernate.orm.jdbc.bind" additivity="false" level="TRACE">
         <appender-ref ref="CONSOLE"/>
     </logger>
