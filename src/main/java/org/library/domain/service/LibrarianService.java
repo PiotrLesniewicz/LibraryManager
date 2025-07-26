@@ -5,7 +5,7 @@ import org.library.domain.exception.NotFoundLibrarianException;
 import org.library.domain.model.Librarian;
 import org.library.infrastructure.database.entity.LibrarianEntity;
 import org.library.infrastructure.database.repository.LibrarianRepository;
-import org.library.mapper.LibrarianEntityMapper;
+import org.library.infrastructure.mapper.LibrarianEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

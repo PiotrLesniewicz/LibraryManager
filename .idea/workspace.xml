@@ -5,14 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e30a9f42-b2a7-415f-ba09-145c7ecd33e2" name="Changes" comment="feat: Implements unit test, refactoring service class&#10;&#10;- refactoring UserService, LibrarianService, AddressService and AccountUserService&#10;- rename LibraryRepository to LibrarianRepository&#10;- replace AddressResolver service with AddressManager&#10;- refactor updateOrSaveAddress method&#10;- use equals and hashCode based on id in User and Address classes&#10;- improve method names for better readability&#10;- add unit tests for AddressManager, AddressService, UserService, and LibrarianService&#10;- add missing @Transactional annotations&#10;- change the PreparationDataService extension to DataTestFactory, and better organize the helper methods for tests.&#10;- breaking up the enum Role into two enums, LibrarianRole and UserRole">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/library/LibraryAppRunner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/application.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/application-test.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/application-test.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/domain/exception/NotFoundUserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/exception/NotFoundUserException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/domain/service/AccountUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/AccountUserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/_ApplicationMarker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/domain/service/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/AddressService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/domain/service/LibrarianService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/LibrarianService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/library/domain/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/domain/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/LibrarianEntityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/mapper/LibrarianEntityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/configuration/ApplicationConfiguration.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/configuration/PersistenceJpaRepositories.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/database/repository/_JpaRepositoriesMarker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/AddressEntityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/mapper/AddressEntityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/LibrarianEntityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/mapper/LibrarianEntityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/library/mapper/UserEntityMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/library/infrastructure/mapper/UserEntityMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_10__library_manager_create_table_books_publishers_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_10__library_manager_create_table_books_publishers_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_11__library_manager_create_table_opinions_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_11__library_manager_create_table_opinions_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_12__library_manager_create_table_book_item_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_12__library_manager_create_table_book_item_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_13__library_manager_create_table_reservation_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_13__library_manager_create_table_reservation_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_14__library_manager_create_table_loan_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_14__library_manager_create_table_loan_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_15__library_manager_create_table_loan_penalty_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_15__library_manager_create_table_loan_penalty_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_1__library_manager_create_table_address_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_1__library_manager_create_table_address_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_2__library_manager_create_table_users_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_2__library_manager_create_table_users_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_3__library_manager_create_table_librarian_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_3__library_manager_create_table_librarian_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_4__library_manager_create_table_books_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_4__library_manager_create_table_books_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_5__library_manager_create_table_categories_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_5__library_manager_create_table_categories_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_6__library_manager_create_table_books_categories_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_6__library_manager_create_table_books_categories_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_7__library_manager_create_table_authors_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_7__library_manager_create_table_authors_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_8__library_manager_create_table_books_authors_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_8__library_manager_create_table_books_authors_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V0_9__library_manager_create_table_publishers_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V0_9__library_manager_create_table_publishers_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/flyway/migrations/V1_0__library_manager_insert_data_ddl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1_0__library_manager_insert_data_ddl.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback-spring.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/library/configuration/TestContainerConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/library/configuration/TestContainerConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/library/integration/AccountUserServiceIntegrationTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/library/integration/AccountUserServiceIntegrationTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/library/unit/AddressServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/library/unit/AddressServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/library/unit/LibrarianServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/library/unit/LibrarianServiceTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/library/unit/UserServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/library/unit/UserServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/database.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/logback-spring.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +82,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="LibraryManager" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="LibraryManager" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -111,113 +141,115 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.AccountServiceTest (1).executor": "Run",
-    "Gradle.AccountServiceTest.executor": "Run",
-    "Gradle.AccountServiceTest.givenExistingAddress_whenAddingUser_thenSuccess.executor": "Debug",
-    "Gradle.AccountServiceTest.shouldCorrectlyUpdateAddress_WhenExistUserHaveNewAddress.executor": "Run",
-    "Gradle.AccountServiceTest.shouldCorrectlyUpdateUser.executor": "Run",
-    "Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeMoreThanOne.executor": "Debug",
-    "Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeNotEqualsOne.executor": "Run",
-    "Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasNoLibrarians.executor": "Run",
-    "Gradle.AccountServiceTest.whenAddingUser_thenNewLibrarianIsCreatedAndAssigned.executor": "Run",
-    "Gradle.AccountUserServiceIntegrationTest.executor": "Run",
-    "Gradle.AccountUserServiceIntegrationTest.shouldCorrectlyDeleteUserWithLibrarian.executor": "Run",
-    "Gradle.AccountUserServiceIntegrationTest.shouldCorrectlyRemoveLibrarian.executor": "Run",
-    "Gradle.AccountUserServiceIntegrationTest.shouldCorrectlyUpdateUser_WhenAddressIsTheSame.executor": "Debug",
-    "Gradle.AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole.executor": "Debug",
-    "Gradle.AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenUpdatingUserWithLibrarianRole.executor": "Debug",
-    "Gradle.AccountUserServiceIntegrationTest.shouldCreateNewUser_WhenUserDoseNotExist.executor": "Run",
-    "Gradle.AccountUserServiceIntegrationTest.shouldNotDeleteAddress_WhenUserIsDeleted.executor": "Run",
-    "Gradle.AccountUserServiceTest (1).executor": "Run",
-    "Gradle.AccountUserServiceTest.executor": "Run",
-    "Gradle.AccountUserServiceTest.givenExistingAddress_whenAddingUser_thenSuccess.executor": "Debug",
-    "Gradle.AccountUserServiceTest.givenUserDoesNotExist_whenAddingUser_thenUserIsPersisted.executor": "Debug",
-    "Gradle.AccountUserServiceTest.shouldCorrectlyUpdateAddress_WhenExistUserHaveNewAddress.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldCorrectlyUpdateUser.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldCreateNewAddressAndRemoveUserFromOld_WhenUpdatingUserWithChangedAddressAndOldAddressIsShared.executor": "Debug",
-    "Gradle.AccountUserServiceTest.shouldCreateNewStandardUser_WhenAddressExist.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldCreateNewStandardUser_WhenEmailDoesNotExist.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldCreateNewStandardUser_WhenEmailDoesNotExistAndAddressExistAndIsShared.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldCreateNewStandardUser_WhenEmailDoesNotExistAndAddressIsNew.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldCreateNewUser_WhenUserIsLibrarian.executor": "Debug",
-    "Gradle.AccountUserServiceTest.shouldThrowExceptionWhenUserHasAddressIsEmptyOrNull.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeNotEqualsOne.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldThrowExceptionWhenUserIsEmpty.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldThrowException_WhenUserHasNoAddress.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldThrowException_WhenUserIsNull.executor": "Run",
-    "Gradle.AccountUserServiceTest.shouldUpdateUserRoleToLibrarian_WhenUserIsUpdated.executor": "Run",
-    "Gradle.AccountUserServiceTest.test.executor": "Debug",
-    "Gradle.AccountUserServiceTest.whenAddingUser_thenNewLibrarianIsCreatedAndAssigned.executor": "Run",
-    "Gradle.AccountUserServiceUnitTest.shouldThrowException_WhenEmailIsUseByOtherUser.executor": "Run",
-    "Gradle.AccountUserServiceUnitTest.shouldThrowException_WhenEmailIsUsedByAnotherUser.executor": "Run",
-    "Gradle.AddressManagerTest.executor": "Run",
-    "Gradle.AddressManagerTest.shouldCorrectlyAddUserToAddress.executor": "Run",
-    "Gradle.AddressManagerTest.shouldCorrectlyCreateNewAddress_WhenCreateIsNewUser.executor": "Run",
-    "Gradle.AddressManagerTest.shouldCorrectlyDissociateUserFromAddress.executor": "Run",
-    "Gradle.AddressManagerTest.shouldCorrectlyFindExistingAddress_WhenCreateIsNewUser.executor": "Run",
-    "Gradle.AddressManagerTest.shouldCorrectlyUpdateAddress_WhenAddressExistWithoutId.executor": "Run",
-    "Gradle.AddressManagerTest.shouldCreateNewAddress_WhenAddressIsUpdateAndAddressIsDifferent.executor": "Debug",
-    "Gradle.AddressManagerTest.shouldFindExistingAddress_WhenAddressNotUpdateAndAddressIsTheSame.executor": "Debug",
-    "Gradle.AddressManagerTest.shouldUpdateAddress_WhenAddressIsUpdateAndAddressIsDifferent.executor": "Run",
-    "Gradle.AddressManagerTest.shouldUpdateAddress_WhenAddressIsUpdatedAndDifferent.executor": "Run",
-    "Gradle.AddressServiceTest.executor": "Run",
-    "Gradle.AddressServiceTest.shouldCorrectlyCreateNewAddress_WhenAddressIdIsNullAndAddressDoesNotExist.executor": "Coverage",
-    "Gradle.AddressServiceTest.shouldCorrectlyUpdateAddress_WhenAddressHasNonId.executor": "Run",
-    "Gradle.AddressServiceTest.shouldFindExistingAddress_WhenAddressIdIsNullAndAddressAlreadyExists.executor": "Run",
-    "Gradle.AddressServiceTest.shouldThrowException_WhenDoseNotFindAddressById.executor": "Run",
-    "Gradle.AppTest.test.executor": "Run",
-    "Gradle.Build LibraryManager.executor": "Run",
-    "Gradle.CreateUserServiceIntegrationTest.addUserWhenDoesNotExist.executor": "Run",
-    "Gradle.CreateUserServiceIntegrationTest.executor": "Run",
-    "Gradle.CreateUserServiceIntegrationTest.test.executor": "Run",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.LibrarianServiceTest.executor": "Run",
-    "Gradle.LibrarianServiceTest.shouldCorrectlySaveLibrarianWithUser.executor": "Run",
-    "Gradle.LibrarianServiceTest.shouldThrowExceptionWhenLibrariansCountIsNotOne.executor": "Run",
-    "Gradle.LibrarianServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeNotEqualsOne.executor": "Run",
-    "Gradle.LibrarianServiceTest.shouldThrowException_WhenNotFoundLibrarianByUserId.executor": "Run",
-    "Gradle.LibrarianServiceTest.shouldThrowsExceptionWhenLibrariansIsEmpty.executor": "Run",
-    "Gradle.LibrarianServiceTest.shouldThrowsExceptionWhenLibrariansIsNull.executor": "Debug",
-    "Gradle.LibraryManager [:org.library.ApplicationRunning.main()].executor": "Run",
-    "Gradle.LibraryManager [buildDependents].executor": "Run",
-    "Gradle.LibraryManager [build].executor": "Run",
-    "Gradle.LibraryManager [check].executor": "Run",
-    "Gradle.LibraryManager [clean test].executor": "Run",
-    "Gradle.LibraryManager [clean].executor": "Run",
-    "Gradle.LibraryManager [compileTestJava].executor": "Run",
-    "Gradle.LibraryManager [jar].executor": "Run",
-    "Gradle.LibraryManager [testClasses].executor": "Run",
-    "Gradle.LibraryManager [test].executor": "Run",
-    "Gradle.LibraryManager [updateDaemonJvm].executor": "Run",
-    "Gradle.LibraryManagerSimulationTest.test.executor": "Run",
-    "Gradle.LibraryManagerTest.executor": "Run",
-    "Gradle.LibraryManagerTest.test (1).executor": "Run",
-    "Gradle.LibraryManagerTest.test.executor": "Run",
-    "Gradle.TestTest.test.executor": "Run",
-    "Gradle.Tests in 'LibraryManager.test'.executor": "Run",
-    "Gradle.Tests in 'org.library'.executor": "Run",
-    "Gradle.Tests in 'org.library.integration'.executor": "Coverage",
-    "Gradle.Tests in 'org.library.unit'.executor": "Run",
-    "Gradle.UserServiceTest.shouldThrowException_WhenNotFoudUserByEmail.executor": "Run",
-    "Gradle.UserServiceTest.shouldThrowException_WhenNotFoudUserByUserName.executor": "Run",
-    "Gradle.UserServiceTest.shouldThrowException_WhenNotFoundUserById.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Programowanie - nauka/Projekty/Personal/LibraryManager/src/main/java/org/library/domain",
-    "project.structure.last.edited": "Problems",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.AccountServiceTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.givenExistingAddress_whenAddingUser_thenSuccess.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountServiceTest.shouldCorrectlyUpdateAddress_WhenExistUserHaveNewAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.shouldCorrectlyUpdateUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeMoreThanOne.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeNotEqualsOne.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.shouldThrowExceptionWhenUserHasNoLibrarians.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountServiceTest.whenAddingUser_thenNewLibrarianIsCreatedAndAssigned.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceIntegrationTest.shouldCorrectlyDeleteUserWithLibrarian.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceIntegrationTest.shouldCorrectlyRemoveLibrarian.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceIntegrationTest.shouldCorrectlyUpdateUser_WhenAddressIsTheSame.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenUpdatingUserWithLibrarianRole.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountUserServiceIntegrationTest.shouldCreateNewUser_WhenUserDoseNotExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceIntegrationTest.shouldNotDeleteAddress_WhenUserIsDeleted.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.givenExistingAddress_whenAddingUser_thenSuccess.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountUserServiceTest.givenUserDoesNotExist_whenAddingUser_thenUserIsPersisted.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldCorrectlyUpdateAddress_WhenExistUserHaveNewAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldCorrectlyUpdateUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldCreateNewAddressAndRemoveUserFromOld_WhenUpdatingUserWithChangedAddressAndOldAddressIsShared.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldCreateNewStandardUser_WhenAddressExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldCreateNewStandardUser_WhenEmailDoesNotExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldCreateNewStandardUser_WhenEmailDoesNotExistAndAddressExistAndIsShared.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldCreateNewStandardUser_WhenEmailDoesNotExistAndAddressIsNew.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldCreateNewUser_WhenUserIsLibrarian.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldThrowExceptionWhenUserHasAddressIsEmptyOrNull.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeNotEqualsOne.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldThrowExceptionWhenUserIsEmpty.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldThrowException_WhenUserHasNoAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldThrowException_WhenUserIsNull.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.shouldUpdateUserRoleToLibrarian_WhenUserIsUpdated.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceTest.test.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AccountUserServiceTest.whenAddingUser_thenNewLibrarianIsCreatedAndAssigned.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceUnitTest.shouldThrowException_WhenEmailIsUseByOtherUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AccountUserServiceUnitTest.shouldThrowException_WhenEmailIsUsedByAnotherUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressManagerTest.shouldCorrectlyAddUserToAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressManagerTest.shouldCorrectlyCreateNewAddress_WhenCreateIsNewUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressManagerTest.shouldCorrectlyDissociateUserFromAddress.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressManagerTest.shouldCorrectlyFindExistingAddress_WhenCreateIsNewUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressManagerTest.shouldCorrectlyUpdateAddress_WhenAddressExistWithoutId.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressManagerTest.shouldCreateNewAddress_WhenAddressIsUpdateAndAddressIsDifferent.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AddressManagerTest.shouldFindExistingAddress_WhenAddressNotUpdateAndAddressIsTheSame.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.AddressManagerTest.shouldUpdateAddress_WhenAddressIsUpdateAndAddressIsDifferent.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressManagerTest.shouldUpdateAddress_WhenAddressIsUpdatedAndDifferent.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressServiceTest.shouldCorrectlyCreateNewAddress_WhenAddressIdIsNullAndAddressDoesNotExist.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.AddressServiceTest.shouldCorrectlyUpdateAddress_WhenAddressHasNonId.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressServiceTest.shouldFindExistingAddress_WhenAddressIdIsNullAndAddressAlreadyExists.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AddressServiceTest.shouldThrowException_WhenDoseNotFindAddressById.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.AppTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build LibraryManager.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CreateUserServiceIntegrationTest.addUserWhenDoesNotExist.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CreateUserServiceIntegrationTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.CreateUserServiceIntegrationTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibrarianServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibrarianServiceTest.shouldCorrectlySaveLibrarianWithUser.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibrarianServiceTest.shouldThrowExceptionWhenLibrariansCountIsNotOne.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibrarianServiceTest.shouldThrowExceptionWhenUserHasLibrariansSizeNotEqualsOne.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibrarianServiceTest.shouldThrowException_WhenNotFoundLibrarianByUserId.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibrarianServiceTest.shouldThrowsExceptionWhenLibrariansIsEmpty.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibrarianServiceTest.shouldThrowsExceptionWhenLibrariansIsNull.executor&quot;: &quot;Debug&quot;,
+    &quot;Gradle.LibraryManager [:org.library.ApplicationRunning.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [buildDependents].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [check].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [clean test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [compileTestJava].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [testClasses].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [test].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManager [updateDaemonJvm].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManagerSimulationTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManagerTest.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManagerTest.test (1).executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.LibraryManagerTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.TestTest.test.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'LibraryManager.test'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'org.library'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Tests in 'org.library.integration'.executor&quot;: &quot;Coverage&quot;,
+    &quot;Gradle.Tests in 'org.library.unit'.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.shouldThrowException_WhenNotFoudUserByEmail.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.shouldThrowException_WhenNotFoudUserByUserName.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.UserServiceTest.shouldThrowException_WhenNotFoundUserById.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/piotr/Programming/Project/LibraryManager/src/test/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="org.library.domain.model" />
@@ -225,11 +257,14 @@
       <recent name="org.library.infrastructure.configuration" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/resources" />
       <recent name="C:\Programowanie - nauka\Projekty\Personal\LibraryManager\src\main\java\org\library\domain" />
       <recent name="C:\Programowanie - nauka\Projekty\Personal\LibraryManager\src\test\resources" />
       <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/db/migration" />
+      <recent name="$PROJECT_DIR$/zasady" />
       <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager" />
       <recent name="C:\Programowanie - nauka\Projekty\Własne\LibraryManager\src" />
     </key>
@@ -248,7 +283,7 @@
       <command value="gradle test --debug" />
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole">
+  <component name="RunManager" selected="Gradle.Tests in 'org.library'">
     <configuration name="AccountUserServiceIntegrationTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -273,7 +308,7 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AccountUserServiceIntegrationTest.shouldCorrectlyDeleteUserWithLibrarian" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="AccountUserServiceIntegrationTest.shouldCreateNewUser_WhenUserDoseNotExist" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -286,7 +321,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.library.integration.AccountUserServiceIntegrationTest.shouldCorrectlyDeleteUserWithLibrarian&quot;" />
+            <option value="&quot;org.library.integration.AccountUserServiceIntegrationTest.shouldCreateNewUser_WhenUserDoseNotExist&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -297,7 +332,51 @@
       <RunAsTest>true</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="LibraryManager [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="LibraryManager [testClasses]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="testClasses" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="Tests in 'org.library'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -310,53 +389,7 @@
           <list>
             <option value=":test" />
             <option value="--tests" />
-            <option value="&quot;org.library.integration.AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole&quot;" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="Tests in 'LibraryManager.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>true</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="UserServiceTest.shouldThrowException_WhenNotFoundUserById" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;org.library.unit.UserServiceTest.shouldThrowException_WhenNotFoundUserById&quot;" />
+            <option value="&quot;org.library.*&quot;" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -368,19 +401,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole" />
-      <item itemvalue="Gradle.Tests in 'LibraryManager.test'" />
-      <item itemvalue="Gradle.UserServiceTest.shouldThrowException_WhenNotFoundUserById" />
-      <item itemvalue="Gradle.AccountUserServiceIntegrationTest.shouldCorrectlyDeleteUserWithLibrarian" />
+      <item itemvalue="Gradle.LibraryManager [testClasses]" />
+      <item itemvalue="Gradle.Tests in 'org.library'" />
+      <item itemvalue="Gradle.AccountUserServiceIntegrationTest.shouldCreateNewUser_WhenUserDoseNotExist" />
+      <item itemvalue="Gradle.LibraryManager [build]" />
       <item itemvalue="Gradle.AccountUserServiceIntegrationTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.AccountUserServiceIntegrationTest.shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole" />
-        <item itemvalue="Gradle.UserServiceTest.shouldThrowException_WhenNotFoundUserById" />
-        <item itemvalue="Gradle.Tests in 'LibraryManager.test'" />
+        <item itemvalue="Gradle.Tests in 'org.library'" />
+        <item itemvalue="Gradle.LibraryManager [testClasses]" />
         <item itemvalue="Gradle.AccountUserServiceIntegrationTest" />
-        <item itemvalue="Gradle.AccountUserServiceIntegrationTest.shouldCorrectlyDeleteUserWithLibrarian" />
+        <item itemvalue="Gradle.AccountUserServiceIntegrationTest.shouldCreateNewUser_WhenUserDoseNotExist" />
+        <item itemvalue="Gradle.LibraryManager [build]" />
       </list>
     </recent_temporary>
   </component>
@@ -502,18 +535,15 @@
       <breakpoints>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main/org/library/mapper/LibrarianEntityMapperImpl.java</url>
-          <line>46</line>
+          <line>48</line>
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint type="java-line">
           <url>file://$PROJECT_DIR$/build/generated/sources/annotationProcessor/java/main/org/library/mapper/UserEntityMapperImpl.java</url>
-          <line>71</line>
+          <line>73</line>
           <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
-      <default-breakpoints>
-        <breakpoint type="dart-exception" />
-      </default-breakpoints>
     </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>

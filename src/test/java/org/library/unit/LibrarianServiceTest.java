@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.library.domain.exception.NotFoundLibrarianException;
 import org.library.domain.service.LibrarianService;
 import org.library.infrastructure.database.repository.LibrarianRepository;
-import org.library.mapper.LibrarianEntityMapper;
+import org.library.infrastructure.mapper.LibrarianEntityMapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
