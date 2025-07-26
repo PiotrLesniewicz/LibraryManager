@@ -5,7 +5,7 @@ import org.library.domain.exception.NotFoundAddressException;
 import org.library.domain.model.Address;
 import org.library.infrastructure.database.entity.AddressEntity;
 import org.library.infrastructure.database.repository.AddressRepository;
-import org.library.mapper.AddressEntityMapper;
+import org.library.infrastructure.mapper.AddressEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

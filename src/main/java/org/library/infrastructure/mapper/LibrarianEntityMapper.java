@@ -1,4 +1,4 @@
-package org.library.mapper;
+package org.library.infrastructure.mapper;
 
 import org.library.domain.model.Librarian;
 import org.library.domain.model.LibrarianRole;

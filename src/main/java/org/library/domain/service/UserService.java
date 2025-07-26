@@ -5,7 +5,7 @@ import org.library.domain.exception.NotFoundUserException;
 import org.library.domain.model.User;
 import org.library.infrastructure.database.entity.UserEntity;
 import org.library.infrastructure.database.repository.UserRepository;
-import org.library.mapper.UserEntityMapper;
+import org.library.infrastructure.mapper.UserEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.library.domain.exception.NotFoundUserException;
 import org.library.domain.service.UserService;
 import org.library.infrastructure.database.repository.UserRepository;
-import org.library.mapper.UserEntityMapper;
+import org.library.infrastructure.mapper.UserEntityMapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;

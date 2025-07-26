@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.library.domain.exception.NotFoundAddressException;
 import org.library.domain.service.AddressService;
 import org.library.infrastructure.database.repository.AddressRepository;
-import org.library.mapper.AddressEntityMapper;
+import org.library.infrastructure.mapper.AddressEntityMapper;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;

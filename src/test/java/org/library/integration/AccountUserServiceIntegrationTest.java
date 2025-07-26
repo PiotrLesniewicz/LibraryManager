@@ -10,9 +10,9 @@ import org.library.domain.service.AccountUserService;
 import org.library.domain.service.AddressService;
 import org.library.domain.service.LibrarianService;
 import org.library.domain.service.UserService;
-import org.library.infrastructure.configuration.ApplicationConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -20,15 +20,15 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-@AllArgsConstructor(onConstructor_ = {@Autowired})
-@SpringJUnitConfig({ApplicationConfiguration.class})
-public class AccountUserServiceIntegrationTest extends TestContainerConfig {
+@SpringBootTest
+@TestPropertySource(locations = "classpath:application-test.yaml")
+@AllArgsConstructor(onConstructor_ = @Autowired)
+class AccountUserServiceIntegrationTest extends TestContainerConfig {
 
     private AccountUserService accountUserService;
     private UserService userService;
     private AddressService addressService;
     private LibrarianService librarianService;
-
 
     @Test
     void shouldCreateNewUser_WhenUserDoseNotExist() {
@@ -89,17 +89,12 @@ public class AccountUserServiceIntegrationTest extends TestContainerConfig {
     void shouldCreateLibrarian_WhenUpdatingUserWithLibrarianRole() {
         // given
         String email = "bob.williams4@example.com";
-        User existingUser = userService.findUserByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
+        User existingUser = userService.findUserByEmail(email).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
 
-        assertThatThrownBy(() -> librarianService.findByUserId(existingUser.getUserId()))
-                .isInstanceOf(NotFoundLibrarianException.class)
-                .hasMessage("Not found librarian for userId: [%s]".formatted(existingUser.getUserId()));
+        assertThatThrownBy(() -> librarianService.findByUserId(existingUser.getUserId())).isInstanceOf(NotFoundLibrarianException.class).hasMessage("Not found librarian for userId: [%s]".formatted(existingUser.getUserId()));
 
         Long initCountLibrarian = librarianService.countLibrarian();
-        User updateUser = existingUser
-                .withUserRole(UserRole.LIBRARIAN)
-                .withLibrarian(DataTestFactory.createLibrarian(LibrarianRole.TECHNIC, LocalDate.now().minusYears(2)));
+        User updateUser = existingUser.withUserRole(UserRole.LIBRARIAN).withLibrarian(DataTestFactory.createLibrarian(LibrarianRole.TECHNIC, LocalDate.now().minusYears(2)));
 
         // when
         User savedUser = accountUserService.accountUser(updateUser);
@@ -117,8 +112,7 @@ public class AccountUserServiceIntegrationTest extends TestContainerConfig {
     void shouldCorrectlyUpdateAddress_WhenExistingUserHasNewAddress() {
         // given
         String email = "jane.smith2@example.com";
-        User existingUser = userService.findUserByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
+        User existingUser = userService.findUserByEmail(email).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
 
 
         Integer addressId = existingUser.getAddress().getAddressId();
@@ -149,17 +143,14 @@ public class AccountUserServiceIntegrationTest extends TestContainerConfig {
         String oldEmail = "noah.clark16@example.com";
         String newEmail = "example@wp.pl";
         String newUserName = "exampleUserName";
-        User existingUser = userService.findUserByEmail(oldEmail)
-                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(oldEmail)));
+        User existingUser = userService.findUserByEmail(oldEmail).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(oldEmail)));
 
         int initCountUsersForAddress = userService.findCountUsersForAddress(existingUser.getAddress().getAddressId());
 
         assertThat(userService.findUserByEmail(newEmail)).isEmpty();
         assertThat(userService.findUserByUserName(newUserName)).isEmpty();
 
-        User updateUser = existingUser
-                .withEmail(newEmail)
-                .withUserName(newUserName);
+        User updateUser = existingUser.withEmail(newEmail).withUserName(newUserName);
 
         // when
         User savedUser = accountUserService.accountUser(updateUser);
@@ -172,23 +163,16 @@ public class AccountUserServiceIntegrationTest extends TestContainerConfig {
         int updateCountUsersForAddress = userService.findCountUsersForAddress(savedUser.getAddress().getAddressId());
         assertThat(initCountUsersForAddress).isEqualTo(updateCountUsersForAddress);
 
-        assertThat(addressService.findByAddressByUserId(savedUser.getUserId()).getUsers())
-                .extracting(User::getEmail)
-                .doesNotContain(existingUser.getEmail())
-                .contains(savedUser.getEmail());
+        assertThat(addressService.findByAddressByUserId(savedUser.getUserId()).getUsers()).extracting(User::getEmail).doesNotContain(existingUser.getEmail()).contains(savedUser.getEmail());
 
-        assertThat(addressService.findByAddressByUserId(savedUser.getUserId()).getUsers())
-                .extracting(User::getUserName)
-                .doesNotContain(existingUser.getUserName())
-                .contains(savedUser.getUserName());
+        assertThat(addressService.findByAddressByUserId(savedUser.getUserId()).getUsers()).extracting(User::getUserName).doesNotContain(existingUser.getUserName()).contains(savedUser.getUserName());
     }
 
     @Test
     void shouldCorrectlyDeleteUserWithLibrarian() {
         // given
         String email = "frank.wilson8@example.com";
-        User existingUser = userService.findUserByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
+        User existingUser = userService.findUserByEmail(email).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
         assertThat(existingUser.getAddress().getUsers()).contains(existingUser);
 
         // when
@@ -201,9 +185,7 @@ public class AccountUserServiceIntegrationTest extends TestContainerConfig {
 
         assertThat(usersForAddress).doesNotContain(existingUser);
         Integer userId = existingUser.getUserId();
-        assertThatThrownBy(() -> librarianService.findByUserId(userId))
-                .isInstanceOf(NotFoundLibrarianException.class)
-                .hasMessage("Not found librarian for userId: [%s]".formatted(userId));
+        assertThatThrownBy(() -> librarianService.findByUserId(userId)).isInstanceOf(NotFoundLibrarianException.class).hasMessage("Not found librarian for userId: [%s]".formatted(userId));
 
     }
 
@@ -219,14 +201,11 @@ public class AccountUserServiceIntegrationTest extends TestContainerConfig {
         accountUserService.removeLibrarian(existingLibrarian);
 
         // then
-        User userWithoutLibrarian = userService.findUserByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found after update"));
+        User userWithoutLibrarian = userService.findUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found after update"));
 
         assertThat(userWithoutLibrarian.getUserId()).isEqualTo(existingLibrarian.getUser().getUserId());
         assertThat(userWithoutLibrarian.getUserRole()).isEqualTo(UserRole.USER);
 
-        assertThatThrownBy(() -> librarianService.findByUserId(userWithoutLibrarian.getUserId()))
-                .isInstanceOf(NotFoundLibrarianException.class)
-                .hasMessage("Not found librarian for userId: [%s]".formatted(userWithoutLibrarian.getUserId()));
+        assertThatThrownBy(() -> librarianService.findByUserId(userWithoutLibrarian.getUserId())).isInstanceOf(NotFoundLibrarianException.class).hasMessage("Not found librarian for userId: [%s]".formatted(userWithoutLibrarian.getUserId()));
     }
 }
