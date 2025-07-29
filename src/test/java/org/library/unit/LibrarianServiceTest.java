@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
-public class LibrarianServiceTest {
+class LibrarianServiceTest {
 
     @InjectMocks
     private LibrarianService librarianService;
@@ -29,7 +29,7 @@ public class LibrarianServiceTest {
     void shouldThrowException_WhenNotFoundLibrarianByLibrarianId() {
         // given
         int librarianId = 10;
-        Mockito.when(librarianRepository.findById(Mockito.eq(librarianId)))
+        Mockito.when(librarianRepository.findById(librarianId))
                 .thenReturn(Optional.empty());
 
         // when, then
@@ -42,7 +42,7 @@ public class LibrarianServiceTest {
     void shouldThrowException_WhenNotFoundLibrarianByUserId() {
         // given
         int userId = 5;
-        Mockito.when(librarianRepository.findByUserId(Mockito.eq(userId)))
+        Mockito.when(librarianRepository.findByUserId(userId))
                 .thenReturn(Optional.empty());
 
         // when, then

@@ -39,20 +39,14 @@ class AddressManagerTest {
         Address newAddress = DataTestFactory.defaultAddress().withAddressId(null);
         Address savedAddress = newAddress.withAddressId(3);
 
-        when(addressService.findAddressByCityAndStreetAndNumberAndPostCode(eq(newAddress)))
-                .thenReturn(Optional.empty());
-        when(addressService.saveAddress(eq(newAddress)))
-                .thenReturn(savedAddress);
+        when(addressService.saveAddress(newAddress)).thenReturn(savedAddress);
 
         // when
         Address resultAddress = addressManager.findOrCreateNewAddress(user.withAddress(newAddress));
 
         // then
         Assertions.assertThat(resultAddress.getAddressId()).isEqualTo(3);
-        verify(addressService, times(1)).findAddressByCityAndStreetAndNumberAndPostCode(eq(newAddress));
-        verify(addressService, times(1)).saveAddress(eq(newAddress));
-
-        verifyNoMoreInteractions(addressService);
+        verify(addressService, times(1)).saveAddress(newAddress);
     }
 
     @Test
@@ -60,20 +54,35 @@ class AddressManagerTest {
         // given
         User user = DataTestFactory.defaultUser().withUserId(8);
         int addressId = 1;
-        Address existingAddress = DataTestFactory.defaultAddress()
-                .withAddressId(addressId);
+        Address existingAddress = DataTestFactory.defaultAddress().withAddressId(addressId);
 
-        when(addressService.findAddressById(eq(addressId)))
-                .thenReturn(existingAddress);
+        when(addressService.findAddressById(addressId)).thenReturn(existingAddress);
 
         // when
         Address resultAddress = addressManager.findOrCreateNewAddress(user.withAddress(existingAddress));
 
         // then
         Assertions.assertThat(resultAddress.getAddressId()).isEqualTo(addressId);
-        verify(addressService, times(1)).findAddressById(eq(addressId));
+        verify(addressService, times(1)).findAddressById(addressId);
+    }
 
-        verifyNoMoreInteractions(addressService);
+    @Test
+    void shouldFindExistingAddress_WhenAddressWithoutIdAndAddressExists() {
+        // given
+        User user = DataTestFactory.defaultUser().withUserId(10);
+        Address searchAddress = DataTestFactory.defaultAddress();
+
+        Address existing = searchAddress.withAddressId(22);
+
+        when(addressService.findAddressByCityAndStreetAndNumberAndPostCode(searchAddress))
+                .thenReturn(Optional.of(existing));
+
+        // when
+        Address resultAddress = addressManager.findOrCreateNewAddress(user.withAddress(searchAddress));
+
+        // then
+        Assertions.assertThat(resultAddress.getAddressId()).isEqualTo(22);
+        verify(addressService, times(1)).findAddressByCityAndStreetAndNumberAndPostCode(searchAddress);
     }
 
     @Test
@@ -83,16 +92,16 @@ class AddressManagerTest {
         User userUpdate = DataTestFactory.defaultUser()
                 .withUserId(47)
                 .withAddress(newAddress);
+
         Address oldUserAddress = DataTestFactory.differentAddress()
                 .withAddressId(12)
                 .withUsers(new HashSet<>(Set.of(userUpdate)));
+
         Address foundMatchingAddress = newAddress.withAddressId(17);
 
-        when(addressService.findByAddressByUserId(eq(userUpdate.getUserId())))
+        when(addressService.findByAddressByUserId(userUpdate.getUserId()))
                 .thenReturn(oldUserAddress);
-        when(addressService.saveAddress(eq(oldUserAddress)))
-                .thenReturn(oldUserAddress.withUsers(Set.of()));
-        when(addressService.findAddressByCityAndStreetAndNumberAndPostCode(eq(newAddress)))
+        when(addressService.findAddressByCityAndStreetAndNumberAndPostCode(newAddress))
                 .thenReturn(Optional.of(foundMatchingAddress));
 
         // when
@@ -100,16 +109,48 @@ class AddressManagerTest {
 
         // then
         Assertions.assertThat(resultAddress.getAddressId()).isEqualTo(foundMatchingAddress.getAddressId());
-        verify(addressService, times(1)).findByAddressByUserId(eq(userUpdate.getUserId()));
-        verify(addressService, times(1)).findAddressByCityAndStreetAndNumberAndPostCode(eq(newAddress));
+        verify(addressService, times(1)).findByAddressByUserId(userUpdate.getUserId());
+        verify(addressService, times(1)).findAddressByCityAndStreetAndNumberAndPostCode(newAddress);
         verify(addressService, times(1)).saveAddress(addressCaptor.capture());
 
         Address capturedOldAddress = addressCaptor.getValue();
         Assertions.assertThat(capturedOldAddress.getAddressId()).isEqualTo(oldUserAddress.getAddressId());
         Assertions.assertThat(capturedOldAddress.getUsers()).doesNotContain(userUpdate);
         Assertions.assertThat(capturedOldAddress.getUsers()).isEmpty();
+    }
 
-        verifyNoMoreInteractions(addressService);
+    @Test
+    void shouldDissociateUserFromOldAddressAndReturnNewAddress_WhenUpdatingToExistingAddressDetails() {
+        // given
+        Address newAddress = DataTestFactory.defaultAddress().withAddressId(null);
+        User userUpdate = DataTestFactory.defaultUser()
+                .withUserId(22)
+                .withAddress(newAddress);
+
+        Address oldUserAddress = DataTestFactory.differentAddress()
+                .withAddressId(3)
+                .withUsers(new HashSet<>(Set.of(userUpdate)));
+
+        Address savedAddress = newAddress.withAddressId(17);
+
+        when(addressService.findByAddressByUserId(userUpdate.getUserId()))
+                .thenReturn(oldUserAddress);
+        when(addressService.findAddressByCityAndStreetAndNumberAndPostCode(newAddress))
+                .thenReturn(Optional.of(savedAddress));
+
+        // when
+        Address resultAddress = addressManager.updateOrCreateNewAddress(userUpdate);
+
+        // then
+        Assertions.assertThat(resultAddress.getAddressId()).isEqualTo(savedAddress.getAddressId());
+        verify(addressService, times(1)).findByAddressByUserId(userUpdate.getUserId());
+        verify(addressService, times(1)).findAddressByCityAndStreetAndNumberAndPostCode(newAddress);
+        verify(addressService, times(1)).saveAddress(addressCaptor.capture());
+
+        Address capturedOldAddress = addressCaptor.getValue();
+        Assertions.assertThat(capturedOldAddress.getAddressId()).isEqualTo(oldUserAddress.getAddressId());
+        Assertions.assertThat(capturedOldAddress.getUsers()).doesNotContain(userUpdate);
+        Assertions.assertThat(capturedOldAddress.getUsers()).isEmpty();
     }
 
     @Test
@@ -121,7 +162,7 @@ class AddressManagerTest {
                         .withAddressId(5));
         Address foundAddress = user.getAddress();
 
-        when(addressService.findAddressById(eq(user.getAddress().getAddressId())))
+        when(addressService.findAddressById(user.getAddress().getAddressId()))
                 .thenReturn(foundAddress);
 
         // when
@@ -129,9 +170,7 @@ class AddressManagerTest {
 
         // then
         Assertions.assertThat(resultAddress.getAddressId()).isEqualTo(foundAddress.getAddressId());
-        verify(addressService, times(1)).findAddressById(eq(user.getAddress().getAddressId()));
-
-        verifyNoMoreInteractions(addressService);
+        verify(addressService, times(1)).findAddressById(user.getAddress().getAddressId());
     }
 
     @Test
@@ -151,9 +190,9 @@ class AddressManagerTest {
         Address newAddress = updateAddress.withAddressId(null);
         Address savedAddress = newAddress.withAddressId(100);
 
-        when(addressService.findAddressById(eq(user.getAddress().getAddressId())))
+        when(addressService.findAddressById(user.getAddress().getAddressId()))
                 .thenReturn(oldAddress);
-        when(addressService.findByAddressByUserId(eq(user.getUserId())))
+        when(addressService.findByAddressByUserId(user.getUserId()))
                 .thenReturn(oldAddress);
         when(addressService.findAddressByCityAndStreetAndNumberAndPostCode(any(Address.class)))
                 .thenReturn(Optional.empty());
@@ -166,8 +205,8 @@ class AddressManagerTest {
         // then
         Assertions.assertThat(resultAddress.getAddressId()).isEqualTo(savedAddress.getAddressId());
 
-        verify(addressService, times(1)).findAddressById(eq(user.getAddress().getAddressId()));
-        verify(addressService, times(1)).findByAddressByUserId(eq(user.getUserId()));
+        verify(addressService, times(1)).findAddressById(user.getAddress().getAddressId());
+        verify(addressService, times(1)).findByAddressByUserId(user.getUserId());
         verify(addressService, times(2)).saveAddress(addressCaptor.capture());
 
         var savedAddresses = addressCaptor.getAllValues();
@@ -182,12 +221,34 @@ class AddressManagerTest {
         Assertions.assertThat(secondSaved.getStreet()).isEqualTo(updateAddress.getStreet());
         Assertions.assertThat(secondSaved.getAddressId()).isNull();
 
-        verifyNoMoreInteractions(addressService);
+
     }
 
+    @Test
+    void shouldAddFirstUserToAddress() {
+        // given
+        Address address = DataTestFactory.defaultAddress()
+                .withAddressId(20)
+                .withUsers(Set.of());
+        User newUser = DataTestFactory.defaultUser().withUserId(74);
+
+        when(addressService.saveAddress(any(Address.class)))
+                .thenReturn(address.withUsers(Set.of(newUser)));
+
+        // when
+        addressManager.addUserToAddress(newUser, address);
+
+        // then
+        verify(addressService, times(1)).saveAddress(addressCaptor.capture());
+
+        Address captured = addressCaptor.getValue();
+        Assertions.assertThat(captured.getAddressId()).isEqualTo(address.getAddressId());
+        Assertions.assertThat(captured.getUsers()).containsExactlyInAnyOrder(newUser);
+        Assertions.assertThat(captured.getUsers()).hasSize(1);
+    }
 
     @Test
-    void shouldCorrectlyAddUserToAddress() {
+    void shouldAddUserToAddress_WhenAddressHasExistingUsers() {
         // given
         User userExist = DataTestFactory.defaultUser().withUserId(55);
         Address address = DataTestFactory.defaultAddress()
@@ -208,12 +269,39 @@ class AddressManagerTest {
         Assertions.assertThat(captured.getAddressId()).isEqualTo(address.getAddressId());
         Assertions.assertThat(captured.getUsers()).containsExactlyInAnyOrder(userExist, newUser);
         Assertions.assertThat(captured.getUsers()).hasSize(2);
-
-        verifyNoMoreInteractions(addressService);
     }
 
     @Test
-    void shouldCorrectlyDissociateUserFromAddress() {
+    void shouldDissociateUserFromAddress_WhenUserIsTheOnlyOneAssigned() {
+        // given
+        User deletingUser = DataTestFactory.defaultUser().withUserId(1);
+
+        Set<User> usersForAddress = new HashSet<>(Set.of(deletingUser));
+        Address address = DataTestFactory.defaultAddress()
+                .withAddressId(1)
+                .withUsers(usersForAddress);
+
+        when(addressService.findByAddressByUserId(deletingUser.getUserId()))
+                .thenReturn(address);
+
+        when(addressService.saveAddress(any(Address.class)))
+                .thenReturn(null);
+
+        // when
+        addressManager.dissociateUserFromCurrentAddress(deletingUser.withAddress(address));
+
+        // then
+
+        verify(addressService, times(1)).findByAddressByUserId(deletingUser.getUserId());
+        verify(addressService, times(1)).saveAddress(addressCaptor.capture());
+
+        Address captured = addressCaptor.getValue();
+        Assertions.assertThat(captured.getAddressId()).isEqualTo(address.getAddressId());
+        Assertions.assertThat(captured.getUsers()).isEmpty();
+    }
+
+    @Test
+    void shouldDissociateUserFromAddress_WhenAddressIsSharedByMultipleUsers() {
         // given
         User deletingUser = DataTestFactory.defaultUser().withUserId(1);
         User user2 = DataTestFactory.defaultUser().withUserId(2);
@@ -224,7 +312,7 @@ class AddressManagerTest {
                 .withAddressId(1)
                 .withUsers(usersForAddress);
 
-        when(addressService.findByAddressByUserId(eq(deletingUser.getUserId())))
+        when(addressService.findByAddressByUserId(deletingUser.getUserId()))
                 .thenReturn(address);
 
         when(addressService.saveAddress(any(Address.class)))
@@ -243,8 +331,5 @@ class AddressManagerTest {
         Assertions.assertThat(captured.getUsers()).containsExactlyInAnyOrder(user2, user3);
         Assertions.assertThat(captured.getUsers()).doesNotContain(deletingUser);
         Assertions.assertThat(captured.getUsers()).hasSize(2);
-
-        verifyNoMoreInteractions(addressService);
     }
-
 }

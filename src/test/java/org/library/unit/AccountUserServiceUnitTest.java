@@ -8,6 +8,7 @@ import org.library.domain.exception.UserValidationException;
 import org.library.domain.model.User;
 import org.library.domain.service.AccountUserService;
 import org.library.domain.service.AddressManager;
+import org.library.domain.service.LibrarianService;
 import org.library.domain.service.UserService;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -28,6 +29,8 @@ class AccountUserServiceUnitTest {
     private UserService userService;
     @Mock
     private AddressManager addressManager;
+    @Mock
+    private LibrarianService librarianService;
 
     @Test
     void shouldThrowException_WhenUserIsNull() {
@@ -62,7 +65,7 @@ class AccountUserServiceUnitTest {
                 .withEmail(email)
                 .withAddress(DataTestFactory.defaultAddress());
 
-        Mockito.when(userService.findUserByEmail(Mockito.eq(email)))
+        Mockito.when(userService.findUserByEmail(email))
                 .thenReturn(Optional.of(exist));
 
         // when, then

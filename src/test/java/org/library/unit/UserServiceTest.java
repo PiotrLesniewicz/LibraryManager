@@ -17,7 +17,7 @@ import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTest {
+class UserServiceTest {
 
     @InjectMocks
     private UserService userService;
