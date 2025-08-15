@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="EntryPointsManager">
-    <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="org.mapstruct.Named" />
-      <item index="1" class="java.lang.String" itemvalue="org.mockito.Mock" />
-      <item index="2" class="java.lang.String" itemvalue="org.springframework.context.annotation.Bean" />
-      <item index="3" class="java.lang.String" itemvalue="org.springframework.context.annotation.DependsOn" />
-      <item index="4" class="java.lang.String" itemvalue="org.springframework.test.context.DynamicPropertySource" />
-    </list>
-  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="21" project-jdk-type="JavaSDK" />
 </project>

@@ -55,6 +55,7 @@ test {
         exceptionFormat "full"
         showStandardStreams = false
     }
+    jvmArgs += ["-javaagent:${configurations.testRuntimeClasspath.find { it.name.contains('byte-buddy-agent') }}"]
 }
 
 compileJava.options.encoding = 'UTF-8'
