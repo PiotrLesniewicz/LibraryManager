@@ -20,30 +20,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @AllArgsConstructor(onConstructor_ = @Autowired)
 @TestPropertySource(locations = "classpath:application-test.yaml")
-class AddressControllerIntegrationTest extends TestContainerConfig {
+class LibrarianControllerIntegrationTest extends TestContainerConfig {
 
     private MockMvc mockMvc;
 
     @Test
     void shouldReturnUnauthorized_WhenNotAuthenticated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me/address"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me/librarian"))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    @WithUserDetails(value = "user5", userDetailsServiceBeanName = "libraryUserDetailsService")
-    void shouldReturnAddressInfoForUser_whenAuthenticated() throws Exception {
+    @WithUserDetails(value = "user1", userDetailsServiceBeanName = "libraryUserDetailsService")
+    void shouldReturnForbidden_WhenNotDenied() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me/librarian"))
+                .andExpect(status().isForbidden());
+    }
 
+    @Test
+    @WithUserDetails(value = "user5", userDetailsServiceBeanName = "libraryUserDetailsService")
+    void shouldReturnLibrarianInfo_whenAccess() throws Exception {
         String jsonExpected = """
                 {
-                "city":"City4",
-                "street":"Street4",
-                "number":"4D",
-                "postCode":"45678"
+                "librarianRole":"ADMIN",
+                "hireDate":"2022-01-01"
                 }
                 """;
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me/address")
+        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me/librarian")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpectAll(
@@ -52,3 +55,4 @@ class AddressControllerIntegrationTest extends TestContainerConfig {
                 );
     }
 }
+

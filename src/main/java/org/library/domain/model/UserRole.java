@@ -11,7 +11,13 @@ public enum UserRole {
     USER("user"),
     LIBRARIAN("librarian");
 
+    private static final String ROLE = "ROLE_";
+
     private final String value;
+
+    public String asAuthority() {
+        return ROLE + name();
+    }
 
     public static UserRole fromString(String value) {
         return Arrays.stream(UserRole.values())

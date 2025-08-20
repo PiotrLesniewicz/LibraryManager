@@ -20,6 +20,6 @@ public interface UserDetailsMapper {
 
     @Named("mapRolesToAuthorities")
     default List<GrantedAuthority> mapRolesToAuthorities(UserRole userRole) {
-        return List.of(new SimpleGrantedAuthority(userRole.getValue()));
+        return List.of(new SimpleGrantedAuthority(userRole.asAuthority()));
     }
 }
