@@ -21,13 +21,15 @@ public class UserService {
     @Transactional
     public User saveUser(User user) {
         UserEntity toSave = userEntityMapper.mapToEntity(user);
-        UserEntity userEntity = userRepository.saveAndFlush(toSave);
+        Integer userId = userRepository.saveAndFlush(toSave).getUserId();
+        UserEntity userEntity = userRepository.findById(userId)
+                .orElseThrow(()->new NotFoundUserException("User with userId: [%s] does not exist".formatted(userId)));
         return userEntityMapper.mapFromEntity(userEntity);
     }
 
     @Transactional
     public void deleteUser(Integer userId) {
-        findUserById(userId);
+        userRepository.findById(userId);
         userRepository.deleteById(userId);
     }
 
@@ -44,7 +46,7 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User findUserById(Integer userId) {
+    public User findById(Integer userId) {
         return userRepository.findById(userId)
                 .map(userEntityMapper::mapFromEntity)
                 .orElseThrow(() -> new NotFoundUserException("User with userId: [%s] does not exist".formatted(userId)));

@@ -6,9 +6,11 @@ import org.library.domain.model.Address;
 import org.library.domain.model.Librarian;
 import org.library.domain.model.User;
 import org.library.domain.model.UserRole;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -19,6 +21,7 @@ public class AccountUserService {
     private final UserService userService;
     private final AddressManager addressManager;
     private final LibrarianService librarianService;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public User accountUser(User user) {
@@ -36,9 +39,34 @@ public class AccountUserService {
         return isNewUser ? createUser(user) : updateUser(user);
     }
 
+    @Transactional
+    public void deleteAccountUser(User user) {
+        addressManager.dissociateUserFromCurrentAddress(user);
+        Integer userId = user.getUserId();
+        if (UserRole.LIBRARIAN.equals(user.getUserRole())) {
+            Librarian librarian = librarianService.findByUserId(userId);
+            librarianService.deleteLibrarian(librarian.getLibrarianId());
+        }
+        userService.deleteUser(userId);
+    }
+
+    @Transactional
+    public void removeLibrarian(Librarian librarian) {
+        librarianService.deleteLibrarian(librarian.getLibrarianId());
+        userService.saveUser(librarian.getUser().withUserRole(UserRole.USER));
+    }
+
     private User createUser(User user) {
         Address address = addressManager.findOrCreateNewAddress(user);
-        return saveUserWithAddressAndLibrarian(user, address);
+        User toSave = getPasswordEncode(user)
+                .withMembershipDate(LocalDate.now());
+        return saveUserWithAddressAndLibrarian(toSave, address);
+    }
+
+    private User getPasswordEncode(User user) {
+        String password = user.getPassword();
+        String encode = passwordEncoder.encode(password);
+        return user.withPassword(encode);
     }
 
     private User updateUser(User user) {
@@ -55,22 +83,5 @@ public class AccountUserService {
             return userService.saveUser(savedUser.withLibrarian(saved));
         }
         return savedUser;
-    }
-
-    @Transactional
-    public void deleteAccountUser(User user) {
-        addressManager.dissociateUserFromCurrentAddress(user);
-        Integer userId = user.getUserId();
-        if (UserRole.LIBRARIAN.equals(user.getUserRole())) {
-            Librarian librarian = librarianService.findByUserId(userId);
-            librarianService.deleteLibrarian(librarian.getLibrarianId());
-        }
-        userService.deleteUser(userId);
-    }
-
-    @Transactional
-    public void removeLibrarian(Librarian librarian) {
-        librarianService.deleteLibrarian(librarian.getLibrarianId());
-        userService.saveUser(librarian.getUser().withUserRole(UserRole.USER));
     }
 }

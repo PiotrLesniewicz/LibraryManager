@@ -1,4 +1,4 @@
-package org.library.integration;
+package org.library.integration.service;
 
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -12,6 +12,7 @@ import org.library.domain.service.LibrarianService;
 import org.library.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
     private UserService userService;
     private AddressService addressService;
     private LibrarianService librarianService;
+    private PasswordEncoder passwordEncoder;
 
     @Test
     void shouldCreateNewUser_WhenUserDoseNotExist() {
@@ -48,7 +50,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
 
         User expected = userService.findUserByEmail(user.getEmail()).orElseThrow();
         assertThat(user.getUserName()).isEqualTo(expected.getUserName());
-
+        assertThat(passwordEncoder.matches(user.getPassword(), expected.getPassword())).isTrue();
     }
 
     @Test

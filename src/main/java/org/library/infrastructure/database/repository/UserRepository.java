@@ -1,6 +1,8 @@
 package org.library.infrastructure.database.repository;
 
+import jakarta.validation.constraints.NotNull;
 import org.library.infrastructure.database.entity.UserEntity;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,7 +11,10 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
-    Optional<UserEntity> findByEmail(@Param("email") String email);
+    @EntityGraph(attributePaths = {"address", "librarian"})
+    Optional<UserEntity> findById(@NotNull Integer userId);
+
+    Optional<UserEntity> findByEmail(String email);
 
     Optional<UserEntity> findByUserName(String userName);
 

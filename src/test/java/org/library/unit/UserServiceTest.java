@@ -35,7 +35,7 @@ class UserServiceTest {
                 .thenReturn(Optional.empty());
 
         // when, then
-        Assertions.assertThatThrownBy(() -> userService.findUserById(userId))
+        Assertions.assertThatThrownBy(() -> userService.findById(userId))
                 .isInstanceOf(NotFoundUserException.class)
                 .hasMessage("User with userId: [%s] does not exist".formatted(userId));
 
