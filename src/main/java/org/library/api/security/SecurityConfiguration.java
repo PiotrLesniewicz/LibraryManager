@@ -45,6 +45,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorization -> authorization
+                                .requestMatchers("library/user/account").permitAll()
                                 .requestMatchers("/library/user/**").authenticated()
                                 .requestMatchers("/library/user/librarian").hasRole("Librarian")
                                 .anyRequest().permitAll()

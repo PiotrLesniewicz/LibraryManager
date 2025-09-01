@@ -1,4 +1,4 @@
-package org.library.integration;
+package org.library.integration.api;
 
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;

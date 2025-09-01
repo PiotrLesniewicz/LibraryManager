@@ -1,4 +1,4 @@
-package org.library.integration;
+package org.library.integration.api;
 
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -16,34 +16,35 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @AllArgsConstructor(onConstructor_ = @Autowired)
 @TestPropertySource(locations = "classpath:application-test.yaml")
-class AddressControllerIntegrationTest extends TestContainerConfig {
+class UserControllerIntegrationTest extends TestContainerConfig {
 
     private MockMvc mockMvc;
 
     @Test
     void shouldReturnUnauthorized_WhenNotAuthenticated() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me/address"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me"))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
     @WithUserDetails(value = "user5", userDetailsServiceBeanName = "libraryUserDetailsService")
-    void shouldReturnAddressInfoForUser_whenAuthenticated() throws Exception {
-
+    void shouldReturnUserInfo_WhenAuthenticated() throws Exception {
         String jsonExpected = """
                 {
-                "city":"City4",
-                "street":"Street4",
-                "number":"4D",
-                "postCode":"45678"
+                "userName":"user5",
+                "name":"Charlie",
+                "surname":"Brown",
+                "email":"charlie.brown5@example.com",
+                "phoneNumber":"1234567894",
+                "membershipDate":"2025-03-18"
                 }
                 """;
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me/address")
+        mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpectAll(
