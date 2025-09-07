@@ -47,6 +47,7 @@ public class SecurityConfiguration {
                         authorization -> authorization
                                 .requestMatchers("library/user/account").permitAll()
                                 .requestMatchers("/library/user/**").authenticated()
+                                .requestMatchers("/library/librarian/account").authenticated()
                                 .requestMatchers("/library/user/librarian").hasRole("Librarian")
                                 .anyRequest().permitAll()
                 )

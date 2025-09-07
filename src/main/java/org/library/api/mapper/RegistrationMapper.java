@@ -1,68 +1,42 @@
 package org.library.api.mapper;
 
-import org.library.api.dto.*;
-import org.library.domain.model.Address;
+import org.library.api.dto.AdminRegistrationRequestDTO;
+import org.library.api.dto.RegistrationRequestDTO;
+import org.library.api.dto.RegistrationResponseDTO;
 import org.library.domain.model.User;
-import org.library.domain.model.UserRole;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", uses = {UserDTOMapper.class, AddressDTOMapper.class, LibrarianDTOMapper.class}, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface RegistrationMapper {
 
-    default User mapFromDto(RegistrationRequestDTO requestDTO) {
-        return User.builder()
-                .userName(requestDTO.userDTO().userName())
-                .name(requestDTO.userDTO().name())
-                .surname(requestDTO.userDTO().surname())
-                .email(requestDTO.userDTO().email())
-                .password(requestDTO.password())
-                .phoneNumber(requestDTO.userDTO().phoneNumber())
-                .address(
-                        Address.builder()
-                                .city(requestDTO.addressDTO().city())
-                                .street(requestDTO.addressDTO().street())
-                                .number(requestDTO.addressDTO().number())
-                                .postCode(requestDTO.addressDTO().postCode())
-                                .build()
-                )
-                .build();
-    }
+    @Mapping(target = "userName", source = "userDTO.userName")
+    @Mapping(target = "name", source = "userDTO.name")
+    @Mapping(target = "surname", source = "userDTO.surname")
+    @Mapping(target = "email", source = "userDTO.email")
+    @Mapping(target = "phoneNumber", source = "userDTO.phoneNumber")
+    @Mapping(target = "membershipDate", source = "userDTO.membershipDate")
+    @Mapping(target = "address", source = "addressDTO")
+    @Mapping(target = "librarian", source = "librarianDTO")
+    User mapFromDto(AdminRegistrationRequestDTO registrationRequestDTO);
 
-    default RegistrationResponseDTO mapToDto(User user) {
-        return new RegistrationResponseDTO(
-                getUserDTO(user),
-                getAddressDTO(user),
-                getLibrarianDTO(user)
-        );
-    }
+    @Mapping(target = "userName", source = "userDTO.userName")
+    @Mapping(target = "name", source = "userDTO.name")
+    @Mapping(target = "surname", source = "userDTO.surname")
+    @Mapping(target = "email", source = "userDTO.email")
+    @Mapping(target = "phoneNumber", source = "userDTO.phoneNumber")
+    @Mapping(target = "membershipDate", source = "userDTO.membershipDate")
+    @Mapping(target = "address", source = "addressDTO")
+    User mapFromDto(RegistrationRequestDTO requestDTO);
 
-    private static UserDTO getUserDTO(User user) {
-        return new UserDTO(
-                user.getUserName(),
-                user.getName(),
-                user.getSurname(),
-                user.getEmail(),
-                user.getPhoneNumber(),
-                user.getMembershipDate()
-        );
-    }
-
-    private static AddressDTO getAddressDTO(User user) {
-        return new AddressDTO(
-                user.getAddress().getCity(),
-                user.getAddress().getStreet(),
-                user.getAddress().getNumber(),
-                user.getAddress().getPostCode()
-        );
-    }
-
-    private static LibrarianDTO getLibrarianDTO(User user) {
-        return user.getUserRole() != UserRole.LIBRARIAN
-                ? null
-                : new LibrarianDTO(
-                user.getLibrarian().getLibrarianRole(),
-                user.getLibrarian().getHireDate()
-        );
-    }
+    @Mapping(target = "userDTO.userName", source = "userName")
+    @Mapping(target = "userDTO.name", source = "name")
+    @Mapping(target = "userDTO.surname", source = "surname")
+    @Mapping(target = "userDTO.email", source = "email")
+    @Mapping(target = "userDTO.phoneNumber", source = "phoneNumber")
+    @Mapping(target = "userDTO.membershipDate", source = "membershipDate")
+    @Mapping(target = "addressDTO", source = "address")
+    @Mapping(target = "librarianDTO", source = "librarian")
+    RegistrationResponseDTO mapToDto(User user);
 }
