@@ -27,7 +27,6 @@ public class LibrarianEntity {
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "librarian")
     private UserEntity user;
 }

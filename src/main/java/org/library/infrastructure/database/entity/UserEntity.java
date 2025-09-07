@@ -15,7 +15,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class
+UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +51,8 @@ public class UserEntity {
     @JoinColumn(name = "address_id", nullable = false)
     private AddressEntity address;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "librarian_id", unique = true)
     private LibrarianEntity librarian;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

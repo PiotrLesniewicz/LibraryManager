@@ -8,13 +8,15 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", uses = UserEntityMapper.class, unmappedSourcePolicy = ReportingPolicy.WARN)
+@Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.WARN)
 public interface LibrarianEntityMapper {
 
     @Mapping(target = "librarianRole", source = "librarianRole", qualifiedByName = "roleToString")
+    @Mapping(target = "user", ignore = true)
     LibrarianEntity mapToEntity(Librarian librarian);
 
     @Mapping(target = "librarianRole", source = "librarianRole", qualifiedByName = "stringToRole")
+    @Mapping(target = "user", ignore = true)
     Librarian mapFromEntity(LibrarianEntity librarianEntity);
 
     @Named("stringToRole")

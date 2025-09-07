@@ -9,7 +9,7 @@ import java.util.Set;
 @Value
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@ToString(exclude = {"address", "librarian", "reservations", "loans"})
+@ToString(exclude = {"address", "reservations", "loans"})
 public class User {
 
     @EqualsAndHashCode.Include

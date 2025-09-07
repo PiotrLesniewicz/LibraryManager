@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.library.configuration.TestContainerConfig;
 import org.library.data.DataTestFactory;
 import org.library.domain.exception.NotFoundLibrarianException;
+import org.library.domain.exception.NotFoundUserException;
 import org.library.domain.model.*;
 import org.library.domain.service.AccountUserService;
 import org.library.domain.service.AddressService;
@@ -102,7 +103,6 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         User savedUser = accountUserService.accountUser(updateUser);
 
         // then
-
         Long updateCountLibrarian = librarianService.countLibrarian();
         Librarian createdLibrarian = librarianService.findByUserEmail(email);
         assertThat(savedUser.getUserRole()).isEqualTo(UserRole.LIBRARIAN);
@@ -195,19 +195,18 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
     void shouldCorrectlyRemoveLibrarian() {
         // given
         String email = "jack.thomas12@example.com";
-        Librarian existingLibrarian = librarianService.findByUserEmail(email);
+        User user = userService.findUserByEmail(email)
+                .orElseThrow(()->new NotFoundUserException("User with email [%s] dose not exist".formatted(email)));
 
-        assertThat(existingLibrarian.getUser()).isNotNull();
+        assertThat(user.getLibrarian()).isNotNull();
 
         // when
-        accountUserService.removeLibrarian(existingLibrarian);
+        accountUserService.removeLibrarian(user);
 
         // then
         User userWithoutLibrarian = userService.findUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found after update"));
 
-        assertThat(userWithoutLibrarian.getUserId()).isEqualTo(existingLibrarian.getUser().getUserId());
+        assertThat(userWithoutLibrarian.getLibrarian()).isNull();
         assertThat(userWithoutLibrarian.getUserRole()).isEqualTo(UserRole.USER);
-
-        assertThatThrownBy(() -> librarianService.findByUserId(userWithoutLibrarian.getUserId())).isInstanceOf(NotFoundLibrarianException.class).hasMessage("Not found librarian for userId: [%s]".formatted(userWithoutLibrarian.getUserId()));
     }
 }

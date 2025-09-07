@@ -9,10 +9,14 @@ CREATE TABLE IF NOT EXISTS users(
     membership_date DATE            NOT NULL,
     role            VARCHAR(32)     NOT NULL,
     address_id      INTEGER         NOT NULL,
+    librarian_id    INTEGER,
     PRIMARY KEY (user_id),
     UNIQUE  (user_name),
     UNIQUE  (email),
     CONSTRAINT fk_users_address
         FOREIGN KEY (address_id)
-            REFERENCES address (address_id)
+            REFERENCES address (address_id),
+    CONSTRAINT fk_users_librarian
+        FOREIGN KEY (librarian_id)
+            REFERENCES librarian (librarian_id)
 );

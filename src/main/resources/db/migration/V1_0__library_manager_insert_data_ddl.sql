@@ -8,32 +8,32 @@ INSERT INTO address (city, street, number, post_code) VALUES
 ('City7', 'Street7', '7G', '78901'),
 ('City8', 'Street8', '8H', '89012');
 
-INSERT INTO users (user_name, name, surname, email, password, phone_number, membership_date, role, address_id) VALUES
-('user1', 'John', 'Doe', 'john.doe1@example.com', '$2a$10$K4OZD/pA5dL0Hcd01keldOU6vmI4nkI3AaYLBEa2qHf42NMx39trW', '1234567890', '2025-03-18', 'user', 1),
-('user2', 'Jane', 'Smith', 'jane.smith2@example.com', '$2a$10$6IGNfzgi.kMMlEelTPsxeuKykQDYoV8T/9iqUmnfwCOrAMYXvId7e', '1234567891', '2025-03-18', 'user', 2),
-('user3', 'Alice', 'Johnson', 'alice.johnson3@example.com', '$2a$10$Oob1L6LkoV7MyFx1CjApC.I6fRF9lfO7yCbVC2RpebA0SK1WgA0Xi', '1234567892', '2025-03-18', 'user', 2),
-('user4', 'Bob', 'Williams', 'bob.williams4@example.com', '$2a$10$aS95/Y39aTjL.QXFhzcneOt2GLLe.4KR6kJTEP8BJg.sWfSpAb.0W', '1234567893', '2025-03-18', 'user', 3),
-('user5', 'Charlie', 'Brown', 'charlie.brown5@example.com', '$2a$10$rSJ8MJceWV84YUc67btBpeb/FeT/0xTxxwNZDJ67Rh8HQ6GrGwOx2', '1234567894', '2025-03-18', 'librarian', 4),
-('user6', 'David', 'Davis', 'david.davis6@example.com', '$2a$10$rua86rbh7b.ZjgZLm2dzlO7KZivyovw2XI98zVIenekwjk8307gtq', '1234567895', '2025-03-18', 'user', 2),
-('user7', 'Emily', 'Miller', 'emily.miller7@example.com', '$2a$10$kzXZg1dxHHF1fDE0jdIea.3c.DU.aqHO3IuKq12GDCEJ1HlG3JpKO', '1234567896', '2025-03-18', 'user', 7),
-('user8', 'Frank', 'Wilson', 'frank.wilson8@example.com', '$2a$10$nVGz3/iTrPJNBnKn8Syw1.3YwiQXM2QETsojnlUcyLH1pe3/eNJaC', '1234567897', '2025-03-18', 'librarian', 8),
-('user9', 'Grace', 'Moore', 'grace.moore9@example.com', '$2a$10$zUIhIjjI3ALQ0KwkGI/9bOPSVx4dG9T4AOW8x2qQBg5yq6j9BZ/NC', '1234567898', '2025-03-18', 'user', 5),
-('user10', 'Henry', 'Taylor', 'henry.taylor10@example.com', '$2a$10$bRG9DrqdPSYG04Aj29Dy.Oezsxs1zUwaSiFT19BAVXemAggfiT.N6', '1234567899', '2025-03-18', 'user', 6),
-('user11', 'Isabel', 'Anderson', 'isabel.anderson11@example.com', '$2a$10$Y.1hMfg9LTIu0xeMIkjtCe9JLUI7CZUGu9vyUMbKgB17yNk/ntqly', '1234567800', '2025-03-18', 'user', 8),
-('user12', 'Jack', 'Thomas', 'jack.thomas12@example.com', '$2a$10$rja.NFEgYRLdP7zatSCxx.KQ1CpW10OHIudAn71xTosEagTIowkKm', '1234567801', '2025-03-18', 'librarian', 8),
-('user13', 'Kimberly', 'Jackson', 'kimberly.jackson13@example.com', '$2a$10$m3pyfknhYBRds0HUSP7tNOiIXGb8fpR/.PJmBxpsB/jRwZsZVKfuG', '1234567802', '2025-03-18', 'user', 2),
-('user14', 'Liam', 'White', 'liam.white14@example.com', '$2a$10$KzWfn8QzPx52TjqlQP8J4eTcDO7UmwJY.0VBsB12I0LdENHLF68EO', '1234567803', '2025-03-18', 'user', 3),
-('user15', 'Mia', 'Harris', 'mia.harris15@example.com', '$2a$10$0ntS0DBxPqaJbqJm0POEke/9H0u1hfYG7SJ.ZE2bu7TvsCvpXhOYy', '1234567804', '2025-03-18', 'user', 1),
-('user16', 'Noah', 'Clark', 'noah.clark16@example.com', '$2a$10$/x8p6SWj.jrZDzt80hsbU.qmAdnqZVj8VIbulvxyQtIftn8nhG93.', '1234567805', '2025-03-18', 'user', 1),
-('user17', 'Olivia', 'Lewis', 'olivia.lewis17@example.com', '$2a$10$ioA/nZYGgdkln0j4CshJium.jwhqKXn.XgBaxJXxXMkUD4h3qOSJq', '1234567806', '2025-03-18', 'user', 2),
-('user18', 'Peter', 'Walker', 'peter.walker18@example.com', '$2a$10$nOb0SQ.O2GgxMXiFBeo7QOrcvUoWBwbudMVI5VNazWFMURCYIvSWa', '1234567807', '2025-03-18', 'user', 7),
-('user19', 'Quinn', 'Hall', 'quinn.hall19@example.com', '$2a$10$xbUhU98xheN46m8CZLOd.OSg7fAm2oTQub5eG83iS9h17u663f30q', '1234567808', '2025-03-18', 'user', 8),
-('user20', 'Rachel', 'Allen', 'rachel.allen20@example.com', '$2a$10$CqeEDqCar7KTWNFJwnVOweHkUgkQL9fH4GxRHWW/Q3zp4kr/vennC', '1234567809', '2025-03-18', 'user', 2);
+INSERT INTO librarian (role, hire_date) VALUES
+('ADMIN', '2022-01-01'), --user5
+('TECHNIC', '2023-05-15'), --user8
+('ASSISTANT', '2021-09-20'); --user12
 
-INSERT INTO librarian (user_id, role, hire_date) VALUES
-(5, 'ADMIN', '2022-01-01'),
-(8, 'TECHNIC', '2023-05-15'),
-(12, 'ASSISTANT', '2021-09-20');
+INSERT INTO users (user_name, name, surname, email, password, phone_number, membership_date, role, address_id, librarian_id) VALUES
+('user1', 'John', 'Doe', 'john.doe1@example.com', '$2a$10$K4OZD/pA5dL0Hcd01keldOU6vmI4nkI3AaYLBEa2qHf42NMx39trW', '1234567890', '2025-03-18', 'user', 1, null),
+('user2', 'Jane', 'Smith', 'jane.smith2@example.com', '$2a$10$6IGNfzgi.kMMlEelTPsxeuKykQDYoV8T/9iqUmnfwCOrAMYXvId7e', '1234567891', '2025-03-18', 'user', 2, null),
+('user3', 'Alice', 'Johnson', 'alice.johnson3@example.com', '$2a$10$Oob1L6LkoV7MyFx1CjApC.I6fRF9lfO7yCbVC2RpebA0SK1WgA0Xi', '1234567892', '2025-03-18', 'user', 2, null),
+('user4', 'Bob', 'Williams', 'bob.williams4@example.com', '$2a$10$aS95/Y39aTjL.QXFhzcneOt2GLLe.4KR6kJTEP8BJg.sWfSpAb.0W', '1234567893', '2025-03-18', 'user', 3, null),
+('user5', 'Charlie', 'Brown', 'charlie.brown5@example.com', '$2a$10$rSJ8MJceWV84YUc67btBpeb/FeT/0xTxxwNZDJ67Rh8HQ6GrGwOx2', '1234567894', '2025-03-18', 'librarian', 4, 1),
+('user6', 'David', 'Davis', 'david.davis6@example.com', '$2a$10$rua86rbh7b.ZjgZLm2dzlO7KZivyovw2XI98zVIenekwjk8307gtq', '1234567895', '2025-03-18', 'user', 2, null),
+('user7', 'Emily', 'Miller', 'emily.miller7@example.com', '$2a$10$kzXZg1dxHHF1fDE0jdIea.3c.DU.aqHO3IuKq12GDCEJ1HlG3JpKO', '1234567896', '2025-03-18', 'user', 7, null),
+('user8', 'Frank', 'Wilson', 'frank.wilson8@example.com', '$2a$10$nVGz3/iTrPJNBnKn8Syw1.3YwiQXM2QETsojnlUcyLH1pe3/eNJaC', '1234567897', '2025-03-18', 'librarian', 8, 2),
+('user9', 'Grace', 'Moore', 'grace.moore9@example.com', '$2a$10$zUIhIjjI3ALQ0KwkGI/9bOPSVx4dG9T4AOW8x2qQBg5yq6j9BZ/NC', '1234567898', '2025-03-18', 'user', 5, null),
+('user10', 'Henry', 'Taylor', 'henry.taylor10@example.com', '$2a$10$bRG9DrqdPSYG04Aj29Dy.Oezsxs1zUwaSiFT19BAVXemAggfiT.N6', '1234567899', '2025-03-18', 'user', 6, null),
+('user11', 'Isabel', 'Anderson', 'isabel.anderson11@example.com', '$2a$10$Y.1hMfg9LTIu0xeMIkjtCe9JLUI7CZUGu9vyUMbKgB17yNk/ntqly', '1234567800', '2025-03-18', 'user', 8, null),
+('user12', 'Jack', 'Thomas', 'jack.thomas12@example.com', '$2a$10$rja.NFEgYRLdP7zatSCxx.KQ1CpW10OHIudAn71xTosEagTIowkKm', '1234567801', '2025-03-18', 'librarian', 8, 3),
+('user13', 'Kimberly', 'Jackson', 'kimberly.jackson13@example.com', '$2a$10$m3pyfknhYBRds0HUSP7tNOiIXGb8fpR/.PJmBxpsB/jRwZsZVKfuG', '1234567802', '2025-03-18', 'user', 2, null),
+('user14', 'Liam', 'White', 'liam.white14@example.com', '$2a$10$KzWfn8QzPx52TjqlQP8J4eTcDO7UmwJY.0VBsB12I0LdENHLF68EO', '1234567803', '2025-03-18', 'user', 3, null),
+('user15', 'Mia', 'Harris', 'mia.harris15@example.com', '$2a$10$0ntS0DBxPqaJbqJm0POEke/9H0u1hfYG7SJ.ZE2bu7TvsCvpXhOYy', '1234567804', '2025-03-18', 'user', 1, null),
+('user16', 'Noah', 'Clark', 'noah.clark16@example.com', '$2a$10$/x8p6SWj.jrZDzt80hsbU.qmAdnqZVj8VIbulvxyQtIftn8nhG93.', '1234567805', '2025-03-18', 'user', 1, null),
+('user17', 'Olivia', 'Lewis', 'olivia.lewis17@example.com', '$2a$10$ioA/nZYGgdkln0j4CshJium.jwhqKXn.XgBaxJXxXMkUD4h3qOSJq', '1234567806', '2025-03-18', 'user', 2, null),
+('user18', 'Peter', 'Walker', 'peter.walker18@example.com', '$2a$10$nOb0SQ.O2GgxMXiFBeo7QOrcvUoWBwbudMVI5VNazWFMURCYIvSWa', '1234567807', '2025-03-18', 'user', 7, null),
+('user19', 'Quinn', 'Hall', 'quinn.hall19@example.com', '$2a$10$xbUhU98xheN46m8CZLOd.OSg7fAm2oTQub5eG83iS9h17u663f30q', '1234567808', '2025-03-18', 'user', 8, null),
+('user20', 'Rachel', 'Allen', 'rachel.allen20@example.com', '$2a$10$CqeEDqCar7KTWNFJwnVOweHkUgkQL9fH4GxRHWW/Q3zp4kr/vennC', '1234567809', '2025-03-18', 'user', 2, null);
 
 INSERT INTO books (title, isbn) VALUES
 ('Book Title 1', '978-1234567890'),

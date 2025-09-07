@@ -21,8 +21,8 @@ public class UserService {
     @Transactional
     public User saveUser(User user) {
         UserEntity toSave = userEntityMapper.mapToEntity(user);
-        Integer userId = userRepository.saveAndFlush(toSave).getUserId();
-        return findById(userId);
+        UserEntity saved = userRepository.saveAndFlush(toSave);
+        return userEntityMapper.mapFromEntity(saved);
     }
 
     @Transactional

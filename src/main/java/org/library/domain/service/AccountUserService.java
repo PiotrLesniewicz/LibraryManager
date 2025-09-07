@@ -53,16 +53,24 @@ public class AccountUserService {
     }
 
     @Transactional
-    public void removeLibrarian(Librarian librarian) {
-        librarianService.deleteLibrarian(librarian.getLibrarianId());
-        userService.saveUser(librarian.getUser().withUserRole(UserRole.USER));
+    public void removeLibrarian(User user) {
+        librarianService.deleteLibrarian(user.getLibrarian().getLibrarianId());
+        userService.saveUser(
+                user.withUserRole(UserRole.USER)
+                        .withLibrarian(null)
+        );
     }
 
     private User createUser(User user) {
         Address address = addressManager.findOrCreateNewAddress(user);
         User toSave = getPasswordEncode(user)
                 .withMembershipDate(LocalDate.now(clock));
-        return saveUserWithAddressAndLibrarian(toSave, address);
+        return saveUser(toSave, address);
+    }
+
+    private User updateUser(User user) {
+        Address addressUpdate = addressManager.updateOrCreateNewAddress(user);
+        return saveUser(user, addressUpdate);
     }
 
     private User getPasswordEncode(User user) {
@@ -71,19 +79,18 @@ public class AccountUserService {
         return user.withPassword(encode);
     }
 
-    private User updateUser(User user) {
-        Address addressUpdate = addressManager.updateOrCreateNewAddress(user);
-        return saveUserWithAddressAndLibrarian(user, addressUpdate);
+    private User saveUser(User user, Address address) {
+        Librarian librarian = isLibrarian(user);
+        User toSave = user.withAddress(address).withLibrarian(librarian);
+        User savedUser = userService.saveUser(toSave);
+        addressManager.addUserToAddress(savedUser, address);
+        return savedUser;
     }
 
-    private User saveUserWithAddressAndLibrarian(User user, Address address) {
-        User userWithAddressId = user.withAddress(address);
-        User savedUser = userService.saveUser(userWithAddressId);
-        addressManager.addUserToAddress(savedUser, address);
+    private Librarian isLibrarian(User user) {
         if (UserRole.LIBRARIAN.equals(user.getUserRole()) && Objects.nonNull(user.getLibrarian())) {
-            Librarian saved = librarianService.saveLibrarian(user.getLibrarian().withUser(savedUser));
-            return userService.saveUser(savedUser.withLibrarian(saved));
+            return librarianService.saveLibrarian(user.getLibrarian());
         }
-        return savedUser;
+        return null;
     }
 }
