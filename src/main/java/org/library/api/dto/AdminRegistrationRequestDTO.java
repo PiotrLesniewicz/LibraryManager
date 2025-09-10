@@ -2,7 +2,7 @@ package org.library.api.dto;
 
 import org.library.domain.model.UserRole;
 
-public record LibrarianRegistrationRequestDTO(
+public record AdminRegistrationRequestDTO(
         String password,
         UserRole userRole,
         UserDTO userDTO,

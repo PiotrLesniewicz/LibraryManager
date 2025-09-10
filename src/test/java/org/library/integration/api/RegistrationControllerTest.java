@@ -44,31 +44,15 @@ public class RegistrationControllerTest extends TestContainerConfig {
         Mockito.when(clock.instant()).thenReturn(fixInstant);
         Mockito.when(clock.getZone()).thenReturn(ZoneId.systemDefault());
 
-        String jsonExpected = """
-                {
-                  "userDTO": {
-                    "userName": "jankowalski",
-                    "name": "Jan",
-                    "surname": "Kowalski",
-                    "email": "jan.kowalski@example.com",
-                    "phoneNumber": "123-456-789",
-                    "membershipDate":"2020-10-03"
-                  },
-                  "addressDTO": {
-                    "city": "Warszawa",
-                    "street": "Marszałkowska",
-                    "number": "10",
-                    "postCode": "00-000"
-                  }
-                }
-                """;
+        String expected = objectMapper.writeValueAsString(buildUser());
+
         mockMvc.perform(MockMvcRequestBuilders.post("/library/user/account")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestUserDTO(fixInstant))))
                 .andDo(print())
                 .andExpectAll(
                         status().isCreated(),
-                        content().json(jsonExpected)
+                        content().json(expected)
                 );
 
     }
@@ -80,37 +64,59 @@ public class RegistrationControllerTest extends TestContainerConfig {
         Mockito.when(clock.instant()).thenReturn(fixInstant);
         Mockito.when(clock.getZone()).thenReturn(ZoneId.systemDefault());
 
-        String jsonExpected = """
-                {
-                  "userDTO": {
-                    "userName": "andnow",
-                    "name": "Andrzej",
-                    "surname": "Nowak",
-                    "email": "nowak@example.com",
-                    "phoneNumber": "266-985-525",
-                    "membershipDate":"2020-07-22"
-                  },
-                  "addressDTO": {
-                    "city": "Rzeszów",
-                    "street": "Warszawska",
-                    "number": "54",
-                    "postCode": "23-800"
-                  },
-                  "librarianDTO": {
-                    "librarianRole": "ADMIN",
-                    "hireDate": "2020-07-22"
-                  }
-                }
-                """;
+        String expected = objectMapper.writeValueAsString(buildLibrarian());
+
         mockMvc.perform(MockMvcRequestBuilders.post("/library/librarian/account")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestLibrarianDTO(fixInstant))))
                 .andDo(print())
                 . andExpectAll(
                         status().isCreated(),
-                        content().json(jsonExpected)
+                        content().json(expected)
                 );
+    }
 
+    private RegistrationResponseDTO buildUser() {
+        return new RegistrationResponseDTO(
+                new UserDTO(
+                        "jankowalski",
+                        "Jan",
+                        "Kowalski",
+                        "jan.kowalski@example.com",
+                        "123-456-789",
+                        LocalDate.of(2020,10,3)
+                ),
+                new AddressDTO(
+                        "Warszawa",
+                        "Marszałkowska",
+                        "10",
+                        "00-000"
+                ),
+                null
+        );
+    }
+
+    private RegistrationResponseDTO buildLibrarian() {
+        return new RegistrationResponseDTO(
+                new UserDTO(
+                        "andnow",
+                        "Andrzej",
+                        "Nowak",
+                        "nowak@example.com",
+                        "266-985-525",
+                        LocalDate.of(2020,7,22)
+                ),
+                new AddressDTO(
+                        "Rzeszów",
+                        "Warszawska",
+                        "54",
+                        "23-800"
+                ),
+                new LibrarianDTO(
+                        LibrarianRole.ADMIN,
+                        LocalDate.of(2020,7,22)
+                )
+        );
     }
 
     private RegistrationRequestDTO requestUserDTO(Instant fixInstant) {
@@ -160,3 +166,4 @@ public class RegistrationControllerTest extends TestContainerConfig {
         );
     }
 }
+

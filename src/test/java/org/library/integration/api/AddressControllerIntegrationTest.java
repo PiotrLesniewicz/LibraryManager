@@ -1,8 +1,10 @@
 package org.library.integration.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.library.configuration.TestContainerConfig;
+import org.library.domain.model.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AddressControllerIntegrationTest extends TestContainerConfig {
 
     private MockMvc mockMvc;
+    private ObjectMapper objectMapper;
 
     @Test
     void shouldReturnUnauthorized_WhenNotAuthenticated() throws Exception {
@@ -34,21 +37,23 @@ class AddressControllerIntegrationTest extends TestContainerConfig {
     @WithUserDetails(value = "user5", userDetailsServiceBeanName = "libraryUserDetailsService")
     void shouldReturnAddressInfoForUser_whenAuthenticated() throws Exception {
 
-        String jsonExpected = """
-                {
-                "city":"City4",
-                "street":"Street4",
-                "number":"4D",
-                "postCode":"45678"
-                }
-                """;
+        String expected = objectMapper.writeValueAsString(buildAddress());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/library/user/me/address")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpectAll(
                         status().isOk(),
-                        content().json(jsonExpected)
+                        content().json(expected)
                 );
+    }
+
+    private static Address buildAddress() {
+       return Address.builder()
+                .city("City4")
+                .street("Street4")
+                .number("4D")
+                .postCode("45678")
+                .build();
     }
 }

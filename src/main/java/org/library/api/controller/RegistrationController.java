@@ -5,12 +5,12 @@ import org.library.api.dto.AdminRegistrationRequestDTO;
 import org.library.api.dto.RegistrationRequestDTO;
 import org.library.api.dto.RegistrationResponseDTO;
 import org.library.api.mapper.RegistrationMapper;
+import org.library.api.security.annotation.IsLibrarian;
 import org.library.domain.model.User;
 import org.library.domain.model.UserRole;
 import org.library.domain.service.AccountUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +35,7 @@ public class RegistrationController {
     }
 
     @PostMapping(LIBRARIAN_CREATE_ACCOUNT)
-    @PreAuthorize("hasRole('LIBRARIAN')")
+    @IsLibrarian
     public ResponseEntity<RegistrationResponseDTO> createAccount(@RequestBody AdminRegistrationRequestDTO registrationRequestDTO) {
         User user = registrationMapper.mapFromDto(registrationRequestDTO);
         User savedUser = accountUserService.accountUser(user);

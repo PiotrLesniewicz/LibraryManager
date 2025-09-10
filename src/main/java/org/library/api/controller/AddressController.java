@@ -19,9 +19,9 @@ public class AddressController {
     private AddressService addressService;
     private AddressDTOMapper mapping;
 
-    static final String ADDRESS_ID = "me/address";
+    static final String ADDRESS_INFO = "me/address";
 
-    @GetMapping(ADDRESS_ID)
+    @GetMapping(ADDRESS_INFO)
     public AddressDTO getLoggerAddressForUserId(@AuthenticationPrincipal LibraryUserDetails userDetails) {
         Address address = addressService.findByAddressByUserId(userDetails.userId());
         return mapping.mapToDto(address);

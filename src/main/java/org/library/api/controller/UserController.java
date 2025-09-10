@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 class UserController {
 
     static final String USER = "/library/user";
-    static final String INFO_USER_NAME = "/me";
+    static final String USER_INFO = "/me";
 
     private final UserDTOMapper userDTOMapper;
 
-    @GetMapping(INFO_USER_NAME)
+    @GetMapping(USER_INFO)
     public UserDTO getLoggerUserInfo(@AuthenticationPrincipal LibraryUserDetails userDetails) {
         return userDTOMapper.mapToDTO(userDetails);
     }
