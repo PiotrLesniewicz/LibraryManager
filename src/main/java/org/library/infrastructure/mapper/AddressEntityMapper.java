@@ -2,7 +2,6 @@ package org.library.infrastructure.mapper;
 
 import org.library.domain.model.Address;
 import org.library.domain.model.User;
-import org.library.domain.model.UserRole;
 import org.library.infrastructure.database.entity.AddressEntity;
 import org.library.infrastructure.database.entity.UserEntity;
 import org.mapstruct.Mapper;
@@ -31,7 +30,7 @@ public interface AddressEntityMapper {
                         .password(entity.getPassword())
                         .phoneNumber(entity.getPhoneNumber())
                         .membershipDate(entity.getMembershipDate())
-                        .userRole(UserRole.fromString(entity.getUserRole()))
+                        .userRole(entity.getUserRole())
                         .build())
                 .collect(Collectors.toSet());
     }

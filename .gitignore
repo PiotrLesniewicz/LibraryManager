@@ -43,3 +43,7 @@ bin/
 ### Mac OS ###
 .DS_Store
 /zasady/
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/vcs.xml
+/_CO TERAZ???.md

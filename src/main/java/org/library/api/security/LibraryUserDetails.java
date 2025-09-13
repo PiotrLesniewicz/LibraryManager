@@ -1,5 +1,6 @@
 package org.library.api.security;
 
+import org.library.domain.model.Librarian;
 import org.library.domain.model.UserRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ public record LibraryUserDetails(
         String phoneNumber,
         LocalDate membershipDate,
         UserRole userRole,
+        Librarian librarian,
         Collection<? extends GrantedAuthority> authorities
 ) implements UserDetails {
 

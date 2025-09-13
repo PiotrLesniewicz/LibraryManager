@@ -2,6 +2,7 @@ package org.library.infrastructure.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.library.domain.model.UserRole;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -45,7 +46,8 @@ UserEntity {
     private LocalDate membershipDate;
 
     @Column(name = "role", nullable = false)
-    private String userRole;
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)

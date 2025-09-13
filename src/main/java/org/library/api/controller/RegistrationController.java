@@ -5,7 +5,7 @@ import org.library.api.dto.AdminRegistrationRequestDTO;
 import org.library.api.dto.RegistrationRequestDTO;
 import org.library.api.dto.RegistrationResponseDTO;
 import org.library.api.mapper.RegistrationMapper;
-import org.library.api.security.annotation.IsLibrarian;
+import org.library.api.security.annotation.IsAdmin;
 import org.library.domain.model.User;
 import org.library.domain.model.UserRole;
 import org.library.domain.service.AccountUserService;
@@ -35,7 +35,7 @@ public class RegistrationController {
     }
 
     @PostMapping(LIBRARIAN_CREATE_ACCOUNT)
-    @IsLibrarian
+    @IsAdmin
     public ResponseEntity<RegistrationResponseDTO> createAccount(@RequestBody AdminRegistrationRequestDTO registrationRequestDTO) {
         User user = registrationMapper.mapFromDto(registrationRequestDTO);
         User savedUser = accountUserService.accountUser(user);

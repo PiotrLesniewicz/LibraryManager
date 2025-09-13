@@ -2,6 +2,7 @@ package org.library.infrastructure.database.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.library.domain.model.LibrarianRole;
 
 import java.time.LocalDate;
 
@@ -21,8 +22,9 @@ public class LibrarianEntity {
     @Column(name = "librarian_id", nullable = false)
     private Integer librarianId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
-    private String librarianRole;
+    private LibrarianRole librarianRole;
 
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;

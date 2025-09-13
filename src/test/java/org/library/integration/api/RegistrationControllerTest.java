@@ -58,7 +58,7 @@ public class RegistrationControllerTest extends TestContainerConfig {
     }
 
     @Test
-    @WithMockUser(roles = {"LIBRARIAN"})
+    @WithMockUser(roles = {"ADMIN"})
     void shouldCorrectlyCreateNewUser_WhenCreateLibrarianUser() throws Exception {
         Instant fixInstant = Instant.parse("2020-07-22T12:00:00Z");
         Mockito.when(clock.instant()).thenReturn(fixInstant);
