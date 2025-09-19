@@ -42,7 +42,7 @@ UserEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "membership_date", nullable = false)
+    @Column(name = "membership_date", nullable = false, updatable = false)
     private LocalDate membershipDate;
 
     @Column(name = "role", nullable = false)

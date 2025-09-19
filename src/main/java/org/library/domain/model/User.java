@@ -7,7 +7,7 @@ import java.util.Set;
 
 @With
 @Value
-@Builder
+@Builder(toBuilder = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(exclude = {"address", "reservations", "loans"})
 public class User {
