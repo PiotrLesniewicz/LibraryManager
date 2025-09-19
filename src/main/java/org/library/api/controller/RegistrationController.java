@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class RegistrationController {
 
-    private static final String USER_CREATE_ACCOUNT = "/library/user/account";
-    private static final String LIBRARIAN_CREATE_ACCOUNT = "library/librarian/account";
+    private static final String USER_CREATE_ACCOUNT = "/library/user";
+    private static final String LIBRARIAN_CREATE_ACCOUNT = "/library/librarian";
     private final AccountUserService accountUserService;
     private final RegistrationMapper registrationMapper;
 
@@ -36,7 +36,7 @@ public class RegistrationController {
 
     @PostMapping(LIBRARIAN_CREATE_ACCOUNT)
     @IsAdmin
-    public ResponseEntity<RegistrationResponseDTO> createAccount(@RequestBody AdminRegistrationRequestDTO registrationRequestDTO) {
+    public ResponseEntity<RegistrationResponseDTO> createAccountByAdmin(@RequestBody AdminRegistrationRequestDTO registrationRequestDTO) {
         User user = registrationMapper.mapFromDto(registrationRequestDTO);
         User savedUser = accountUserService.accountUser(user);
         return ResponseEntity

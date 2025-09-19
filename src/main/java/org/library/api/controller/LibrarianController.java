@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class LibrarianController {
 
-    static final String LIBRARIAN_INFO = "me/librarian";
+    static final String LIBRARIAN_INFO = "/me/librarian";
 
     private final LibrarianService librarianService;
     private final LibrarianDTOMapper mapper;

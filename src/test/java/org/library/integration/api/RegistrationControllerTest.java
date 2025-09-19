@@ -46,7 +46,7 @@ public class RegistrationControllerTest extends TestContainerConfig {
 
         String expected = objectMapper.writeValueAsString(buildUser());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/library/user/account")
+        mockMvc.perform(MockMvcRequestBuilders.post("/library/user")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestUserDTO(fixInstant))))
                 .andDo(print())
@@ -66,7 +66,7 @@ public class RegistrationControllerTest extends TestContainerConfig {
 
         String expected = objectMapper.writeValueAsString(buildLibrarian());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/library/librarian/account")
+        mockMvc.perform(MockMvcRequestBuilders.post("/library/librarian")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(requestLibrarianDTO(fixInstant))))
                 .andDo(print())
