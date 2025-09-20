@@ -9,6 +9,8 @@ import org.library.infrastructure.mapper.LibrarianEntityMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class LibrarianService {
@@ -37,10 +39,9 @@ public class LibrarianService {
     }
 
     @Transactional(readOnly = true)
-    public Librarian findByUserId(Integer userId) {
+    public Optional<Librarian> findByUserId(Integer userId) {
         return librarianRepository.findByUserId(userId)
-                .map(librarianEntityMapper::mapFromEntity)
-                .orElseThrow(() -> new NotFoundLibrarianException("Not found librarian for userId: [%s]".formatted(userId)));
+                .map(librarianEntityMapper::mapFromEntity);
     }
 
     @Transactional(readOnly = true)

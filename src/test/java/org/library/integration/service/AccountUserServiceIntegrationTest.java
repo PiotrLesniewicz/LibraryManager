@@ -20,7 +20,6 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-test.yaml")
@@ -81,7 +80,8 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         User savedUser = accountUserService.accountUser(newUser);
 
         // then
-        Librarian createdLibrarian = librarianService.findByUserId(savedUser.getUserId());
+        Librarian createdLibrarian = librarianService.findByUserId(savedUser.getUserId())
+                .orElseThrow(() -> new NotFoundLibrarianException("Not found librarian for userId: [%s]".formatted(savedUser.getUserId())));
         assertThat(savedUser.getUserRole()).isEqualTo(UserRole.LIBRARIAN);
         assertThat(createdLibrarian.getLibrarianRole()).isEqualTo(LibrarianRole.ADMIN);
         Long updateCountLibrarian = librarianService.countLibrarian();
@@ -94,8 +94,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         String email = "bob.williams4@example.com";
         User existingUser = userService.findUserByEmail(email).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
 
-        assertThatThrownBy(() -> librarianService.findByUserId(existingUser.getUserId())).isInstanceOf(NotFoundLibrarianException.class).hasMessage("Not found librarian for userId: [%s]".formatted(existingUser.getUserId()));
-
+        assertThat(librarianService.findByUserId(existingUser.getUserId())).isEmpty();
         Long initCountLibrarian = librarianService.countLibrarian();
         User updateUser = existingUser.withUserRole(UserRole.LIBRARIAN).withLibrarian(DataTestFactory.createLibrarian(LibrarianRole.TECHNIC, LocalDate.now().minusYears(2)));
 
@@ -187,7 +186,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
 
         assertThat(usersForAddress).doesNotContain(existingUser);
         Integer userId = existingUser.getUserId();
-        assertThatThrownBy(() -> librarianService.findByUserId(userId)).isInstanceOf(NotFoundLibrarianException.class).hasMessage("Not found librarian for userId: [%s]".formatted(userId));
+        assertThat(librarianService.findByUserId(userId)).isEmpty();
 
     }
 
@@ -196,7 +195,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         // given
         String email = "jack.thomas12@example.com";
         User user = userService.findUserByEmail(email)
-                .orElseThrow(()->new NotFoundUserException("User with email [%s] dose not exist".formatted(email)));
+                .orElseThrow(() -> new NotFoundUserException("User with email [%s] dose not exist".formatted(email)));
 
         assertThat(user.getLibrarian()).isNotNull();
 

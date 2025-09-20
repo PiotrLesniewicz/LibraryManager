@@ -46,19 +46,21 @@ public class AccountUserService {
         addressManager.dissociateUserFromCurrentAddress(user);
         Integer userId = user.getUserId();
         if (UserRole.LIBRARIAN.equals(user.getUserRole())) {
-            Librarian librarian = librarianService.findByUserId(userId);
-            librarianService.deleteLibrarian(librarian.getLibrarianId());
+            Optional<Librarian> librarian = librarianService.findByUserId(userId);
+            librarian.ifPresent(value -> librarianService.deleteLibrarian(value.getLibrarianId()));
         }
         userService.deleteUser(userId);
     }
 
     @Transactional
     public void removeLibrarian(User user) {
-        librarianService.deleteLibrarian(user.getLibrarian().getLibrarianId());
-        userService.saveUser(
-                user.withUserRole(UserRole.USER)
-                        .withLibrarian(null)
-        );
+        if (Objects.nonNull(user.getLibrarian())) {
+            librarianService.deleteLibrarian(user.getLibrarian().getLibrarianId());
+            userService.saveUser(
+                    user.withUserRole(UserRole.USER)
+                            .withLibrarian(null)
+            );
+        }
     }
 
     private User createUser(User user) {
@@ -80,17 +82,31 @@ public class AccountUserService {
     }
 
     private User saveUser(User user, Address address) {
-        Librarian librarian = isLibrarian(user);
+        Librarian librarian = getOrCreateLibrarian(user);
         User toSave = user.withAddress(address).withLibrarian(librarian);
         User savedUser = userService.saveUser(toSave);
         addressManager.addUserToAddress(savedUser, address);
         return savedUser;
     }
 
-    private Librarian isLibrarian(User user) {
-        if (UserRole.LIBRARIAN.equals(user.getUserRole()) && Objects.nonNull(user.getLibrarian())) {
-            return librarianService.saveLibrarian(user.getLibrarian());
+    private Librarian getOrCreateLibrarian(User user) {
+        if (!UserRole.LIBRARIAN.equals(user.getUserRole())) {
+            return null;
         }
-        return null;
+
+        if (user.getLibrarian() == null) {
+            throw new UserValidationException("Librarian data must be provided for user with LIBRARIAN role");
+        }
+
+        if (user.getUserId() != null) {
+            Optional<Librarian> existing = librarianService.findByUserId(user.getUserId());
+            if (existing.isPresent()) {
+                return existing.get();
+            }
+        }
+
+        Librarian librarian = user.getLibrarian()
+                .withHireDate(LocalDate.now(clock));
+        return librarianService.saveLibrarian(librarian);
     }
 }

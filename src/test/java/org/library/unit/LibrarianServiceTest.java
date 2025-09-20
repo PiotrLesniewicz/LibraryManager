@@ -37,17 +37,4 @@ class LibrarianServiceTest {
                 .isInstanceOf(NotFoundLibrarianException.class)
                 .hasMessage("Not found librarian for librarianId: [%s]".formatted(librarianId));
     }
-
-    @Test
-    void shouldThrowException_WhenNotFoundLibrarianByUserId() {
-        // given
-        int userId = 5;
-        Mockito.when(librarianRepository.findByUserId(userId))
-                .thenReturn(Optional.empty());
-
-        // when, then
-        Assertions.assertThatThrownBy(() -> librarianService.findByUserId(userId))
-                .isInstanceOf(NotFoundLibrarianException.class)
-                .hasMessage("Not found librarian for userId: [%s]".formatted(userId));
-    }
 }
