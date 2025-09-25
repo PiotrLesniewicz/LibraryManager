@@ -16,7 +16,6 @@ public class DataTestFactory {
                 .surname("defaultSurname")
                 .email("default@email.com")
                 .password("default")
-                .membershipDate(LocalDate.now().minusYears(3))
                 .userRole(UserRole.USER)
                 .build();
     }
@@ -28,7 +27,6 @@ public class DataTestFactory {
                 .surname("differentSurname")
                 .email("different@email.com")
                 .password("different")
-                .membershipDate(LocalDate.now().minusYears(3))
                 .userRole(UserRole.USER)
                 .build();
     }
@@ -40,7 +38,6 @@ public class DataTestFactory {
                 .surname("Smith")
                 .email("john.smith@example.com")
                 .password("securePass")
-                .membershipDate(LocalDate.now())
                 .userRole(UserRole.USER)
                 .address(defaultAddress())
                 .build();
@@ -53,7 +50,6 @@ public class DataTestFactory {
                 .surname("Taylor")
                 .email("anna.taylor@example.com")
                 .password("password123")
-                .membershipDate(LocalDate.now())
                 .userRole(UserRole.USER)
                 .address(existingAddress)
                 .build();
@@ -66,9 +62,10 @@ public class DataTestFactory {
                 .surname("Nelson")
                 .email("frank.nelson@example.com")
                 .password("librarianPass")
-                .membershipDate(LocalDate.now())
                 .userRole(UserRole.LIBRARIAN)
-                .librarian(createLibrarian(LibrarianRole.ADMIN, LocalDate.now()))
+                .librarian(Librarian.builder()
+                        .librarianRole(LibrarianRole.ADMIN)
+                        .build())
                 .address(defaultAddress())
                 .build();
     }
@@ -93,12 +90,12 @@ public class DataTestFactory {
                 .build();
     }
 
-    public static Librarian createLibrarian(LibrarianRole userRole, LocalDate hireDate) {
+    public static Librarian librarianExistingInDB() {
         return Librarian.builder()
-                .librarianRole(userRole)
-                .hireDate(hireDate)
+                .librarianId(2)
+                .librarianRole(LibrarianRole.TECHNIC)
+                .hireDate(LocalDate.of(2021, 5, 15))
                 .build();
     }
-
 }
 

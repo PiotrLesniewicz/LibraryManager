@@ -5,6 +5,7 @@ import org.library.api.dto.LibrarianDTO;
 import org.library.api.mapper.LibrarianDTOMapper;
 import org.library.api.security.LibraryUserDetails;
 import org.library.api.security.annotation.IsLibrarian;
+import org.library.domain.exception.NotFoundLibrarianException;
 import org.library.domain.model.Librarian;
 import org.library.domain.service.LibrarianService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,7 +26,8 @@ public class LibrarianController {
     @IsLibrarian
     @GetMapping(LIBRARIAN_INFO)
     public LibrarianDTO getLoggerLibrarian(@AuthenticationPrincipal LibraryUserDetails userDetails) {
-        Librarian librarian = librarianService.findByUserId(userDetails.userId());
+        Librarian librarian = librarianService.findByUserId(userDetails.userId())
+                .orElseThrow(() -> new NotFoundLibrarianException("Not found librarian for userId: [%s]".formatted(userDetails.userId())));
         return mapper.mapToDto(librarian);
     }
 }
