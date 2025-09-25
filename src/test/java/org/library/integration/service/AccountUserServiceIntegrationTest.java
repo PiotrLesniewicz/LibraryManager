@@ -16,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -96,7 +95,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
 
         assertThat(librarianService.findByUserId(existingUser.getUserId())).isEmpty();
         Long initCountLibrarian = librarianService.countLibrarian();
-        User updateUser = existingUser.withUserRole(UserRole.LIBRARIAN).withLibrarian(DataTestFactory.createLibrarian(LibrarianRole.TECHNIC, LocalDate.now().minusYears(2)));
+        User updateUser = existingUser.withUserRole(UserRole.LIBRARIAN).withLibrarian(Librarian.builder().librarianRole(LibrarianRole.TECHNIC).build());
 
         // when
         User savedUser = accountUserService.accountUser(updateUser);
@@ -184,7 +183,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
 
         Set<User> usersForAddress = addressService.findAddressById(existingUser.getAddress().getAddressId()).getUsers();
 
-        assertThat(usersForAddress).doesNotContain(existingUser);
+        assertThat(usersForAddress).isNotEmpty().doesNotContain(existingUser);
         Integer userId = existingUser.getUserId();
         assertThat(librarianService.findByUserId(userId)).isEmpty();
 
