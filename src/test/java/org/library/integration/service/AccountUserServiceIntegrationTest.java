@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.library.configuration.TestContainerConfig;
 import org.library.data.DataTestFactory;
-import org.library.domain.exception.NotFoundLibrarianException;
 import org.library.domain.exception.NotFoundUserException;
 import org.library.domain.model.*;
 import org.library.domain.service.AccountUserService;
@@ -32,24 +31,31 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
     private PasswordEncoder passwordEncoder;
 
     @Test
-    void shouldCreateNewUser_WhenUserDoseNotExist() {
+    void shouldCreateNewUser_WhenUserDoesNotExist() {
+        // phone number is empty because it is optional
+        // membershipDate is empty because it is set during newUser creation
 
         // given
         Long initCountUser = userService.countUser();
-        User user = DataTestFactory.userForNewAccount();
-
-        assertThat(userService.findUserByEmail(user.getEmail())).isEmpty();
+        User newUser = DataTestFactory.userForNewAccount();
+        assertThat(userService.findUserByEmail(newUser.getEmail())).isEmpty();
 
         // when
-        accountUserService.accountUser(user);
+        User savedUser = accountUserService.createAccountUser(newUser);
 
         // then
         Long updateCountUser = userService.countUser();
         assertThat(initCountUser + 1).isEqualTo(updateCountUser);
 
-        User expected = userService.findUserByEmail(user.getEmail()).orElseThrow();
-        assertThat(user.getUserName()).isEqualTo(expected.getUserName());
-        assertThat(passwordEncoder.matches(user.getPassword(), expected.getPassword())).isTrue();
+
+        assertThat(savedUser.getUserId()).isNotNull();
+        assertThat(savedUser.getAddress().getAddressId()).isNotNull();
+        assertThat(savedUser.getMembershipDate()).isNotNull();
+
+        assertThat(savedUser).usingRecursiveComparison()
+                .ignoringFields("userId", "password", "membershipDate", "address.addressId", "address.users")
+                .isEqualTo(newUser);
+        assertThat(passwordEncoder.matches(newUser.getPassword(), savedUser.getPassword())).isTrue();
     }
 
     @Test
@@ -60,7 +66,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         User user = DataTestFactory.userWithExistingAddress(addressExistInDB);
 
         // when
-        User savedUser = accountUserService.accountUser(user);
+        User savedUser = accountUserService.createAccountUser(user);
 
         // then
         assertThat(savedUser.getAddress()).isEqualTo(addressExistInDB);
@@ -71,20 +77,20 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
     @Test
     void shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole() {
         // given
+        //hireDate is empty because it is set during newUser creation
         User newUser = DataTestFactory.librarianUser();
 
         Long initCountLibrarian = librarianService.countLibrarian();
 
         // when
-        User savedUser = accountUserService.accountUser(newUser);
+        User savedUser = accountUserService.createAccountUser(newUser);
 
         // then
-        Librarian createdLibrarian = librarianService.findByUserId(savedUser.getUserId())
-                .orElseThrow(() -> new NotFoundLibrarianException("Not found librarian for userId: [%s]".formatted(savedUser.getUserId())));
         assertThat(savedUser.getUserRole()).isEqualTo(UserRole.LIBRARIAN);
-        assertThat(createdLibrarian.getLibrarianRole()).isEqualTo(LibrarianRole.ADMIN);
+        assertThat(savedUser.getLibrarian().getLibrarianRole()).isEqualTo(LibrarianRole.ADMIN);
+        assertThat(savedUser.getLibrarian().getHireDate()).isNotNull();
         Long updateCountLibrarian = librarianService.countLibrarian();
-        assertThat(initCountLibrarian + 1).isEqualTo(updateCountLibrarian);
+        assertThat(updateCountLibrarian).isEqualTo(initCountLibrarian + 1);
     }
 
     @Test
@@ -98,13 +104,13 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         User updateUser = existingUser.withUserRole(UserRole.LIBRARIAN).withLibrarian(Librarian.builder().librarianRole(LibrarianRole.TECHNIC).build());
 
         // when
-        User savedUser = accountUserService.accountUser(updateUser);
+        User savedUser = accountUserService.updateAccountUser(updateUser);
 
         // then
         Long updateCountLibrarian = librarianService.countLibrarian();
-        Librarian createdLibrarian = librarianService.findByUserEmail(email);
         assertThat(savedUser.getUserRole()).isEqualTo(UserRole.LIBRARIAN);
-        assertThat(createdLibrarian.getLibrarianRole()).isEqualTo(LibrarianRole.TECHNIC);
+        assertThat(savedUser.getLibrarian().getLibrarianRole()).isEqualTo(LibrarianRole.TECHNIC);
+        assertThat(savedUser.getLibrarian().getHireDate()).isNotNull();
         assertThat(initCountLibrarian + 1).isEqualTo(updateCountLibrarian);
     }
 
@@ -123,7 +129,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         User userUpdate = existingUser.withAddress(newAddress);
 
         // when
-        User savedUser = accountUserService.accountUser(userUpdate);
+        User savedUser = accountUserService.updateAccountUser(userUpdate);
 
         //then
         assertThat(savedUser.getUserId()).isEqualTo(userUpdate.getUserId());
@@ -138,7 +144,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
     }
 
     @Test
-    void shouldCorrectlyUpdateUser_WhenAddressIsTheSame() {
+    void shouldCorrectlyUpdateAccountUser_WhenAddressIsTheSame() {
         // given
         String oldEmail = "noah.clark16@example.com";
         String newEmail = "example@wp.pl";
@@ -153,18 +159,18 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         User updateUser = existingUser.withEmail(newEmail).withUserName(newUserName);
 
         // when
-        User savedUser = accountUserService.accountUser(updateUser);
+        User savedUser = accountUserService.updateAccountUser(updateUser);
 
         // then
-        assertThat(existingUser.getUserId()).isEqualTo(savedUser.getUserId());
-        assertThat(existingUser.getUserName()).isNotEqualTo(savedUser.getUserName());
-        assertThat(existingUser.getEmail()).isNotEqualTo(savedUser.getEmail());
+        assertThat(savedUser.getUserId()).isEqualTo(updateUser.getUserId());
+        assertThat(savedUser.getUserName()).isEqualTo(updateUser.getUserName());
+        assertThat(savedUser.getEmail()).isEqualTo(updateUser.getEmail());
+        assertThat(savedUser.getMembershipDate()).isEqualTo(updateUser.getMembershipDate());
 
         int updateCountUsersForAddress = userService.findCountUsersForAddress(savedUser.getAddress().getAddressId());
         assertThat(initCountUsersForAddress).isEqualTo(updateCountUsersForAddress);
 
         assertThat(addressService.findByAddressByUserId(savedUser.getUserId()).getUsers()).extracting(User::getEmail).doesNotContain(existingUser.getEmail()).contains(savedUser.getEmail());
-
         assertThat(addressService.findByAddressByUserId(savedUser.getUserId()).getUsers()).extracting(User::getUserName).doesNotContain(existingUser.getUserName()).contains(savedUser.getUserName());
     }
 

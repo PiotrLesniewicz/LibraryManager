@@ -1,6 +1,7 @@
 package org.library.domain.model;
 
 import lombok.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -27,4 +28,23 @@ public class User {
     Set<Reservation> reservations;
     Set<Loan> loans;
     Set<Opinion> opinions;
+
+    public User downgradeUser() {
+        return this.withUserRole(UserRole.USER)
+                .withLibrarian(null);
+    }
+
+    public User updateFrom(User updated, Address address, Librarian librarian, PasswordEncoder passwordEncoder) {
+        return this.toBuilder()
+                    .userName(updated.getUserName() != null ? updated.getUserName() : this.userName)
+                    .password(updated.getPassword() != null ? passwordEncoder.encode(updated.getPassword()) : this.password)
+                    .name(updated.getName() != null ? updated.getName() : this.name)
+                    .surname(updated.getSurname() != null ? updated.getSurname() : this.surname)
+                    .email(updated.getEmail() != null ? updated.getEmail() : this.email)
+                    .phoneNumber(updated.getPhoneNumber() != null ? updated.getPhoneNumber() : this.phoneNumber)
+                    .userRole(librarian != null ? UserRole.LIBRARIAN : UserRole.USER)
+                    .address(address)
+                    .librarian(librarian)
+                    .build();
+        }
 }
