@@ -174,43 +174,13 @@ class LibrarianServiceTest {
     @Test
     void shouldDeleteLibrarian_WhenLibrarianExists() {
         // given
-        int userId = 45;
-        LibrarianEntity entity = LibrarianEntity.builder()
-                .librarianId(5)
-                .build();
-
-        Librarian librarian = DataTestFactory.librarianExistingInDB().withLibrarianId(5);
-        when(librarianRepository.findByUserId(userId)).thenReturn(Optional.of(entity));
-        when(librarianEntityMapper.mapFromEntity(entity)).thenReturn(librarian);
+        int librarianId = 5;
+        doNothing().when(librarianRepository).deleteById(librarianId);
 
         // when
-        librarianService.deleteLibrarian(45);
+        librarianService.deleteLibrarian(librarianId);
 
         // then
-        verify(librarianRepository).findByUserId(45);
-        verify(librarianRepository).deleteById(librarian.getLibrarianId());
-    }
-
-    @Test
-    void shouldThrowException_WhenLibrarianDoesNotExist() {
-        // given
-        int userId = 99;
-        when(librarianRepository.findByUserId(userId)).thenReturn(Optional.empty());
-
-        // when, then
-        assertThatThrownBy(() -> librarianService.deleteLibrarian(userId))
-                .isInstanceOf(NotFoundLibrarianException.class)
-                .hasMessage("Cannot delete librarian: no librarian found for userId [%s]".formatted(userId));
-        verify(librarianRepository).findByUserId(userId);
-        verify(librarianRepository, never()).deleteById(userId);
-    }
-
-    @Test
-    void shouldThrowException_WhenUserIdIsNull_OnDeleteLibrarian() {
-        // given, when, then
-        assertThatThrownBy(() -> librarianService.deleteLibrarian(null))
-                .isInstanceOf(UserValidationException.class)
-                .hasMessage("Cannot delete librarian: userId is null");
-        verifyNoInteractions(librarianRepository);
+        verify(librarianRepository).deleteById(librarianId);
     }
 }

@@ -42,14 +42,8 @@ public class LibrarianService {
     }
 
     @Transactional
-    public void deleteLibrarian(Integer userId) {
-        if (Objects.isNull(userId)) {
-            throw new UserValidationException("Cannot delete librarian: userId is null");
-        }
-        Librarian librarian = findByUserId(userId)
-                .orElseThrow(()->new NotFoundLibrarianException("Cannot delete librarian: no librarian found for userId [%s]".formatted(userId)));
-
-        librarianRepository.deleteById(librarian.getLibrarianId());
+    public void deleteLibrarian(Integer librarianId) {
+       librarianRepository.deleteById(librarianId);
     }
 
     public Librarian saveLibrarian(Librarian librarian) {
