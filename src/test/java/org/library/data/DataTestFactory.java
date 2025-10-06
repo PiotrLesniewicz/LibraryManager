@@ -97,5 +97,11 @@ public class DataTestFactory {
                 .hireDate(LocalDate.of(2021, 5, 15))
                 .build();
     }
+
+    public static Librarian defaultLibrarian() {
+        return Librarian.builder()
+                .librarianRole(LibrarianRole.ADMIN)
+                .build();
+    }
 }
 
