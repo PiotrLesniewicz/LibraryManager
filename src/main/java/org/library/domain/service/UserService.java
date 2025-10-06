@@ -42,7 +42,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updateUser(Integer userId) {
+    public void downgradeLibrarianToUser(Integer userId) {
         User exist = findById(userId);
         User toUpdate = exist.downgradeUser();
         saveUser(toUpdate);
@@ -50,14 +50,13 @@ public class UserService {
 
     @Transactional
     public User updateUser(User existing, User updated, Address address, Librarian librarian) {
-        validateDataUser(updated);
-        existing = existing.updateFrom(updated, address, librarian, passwordEncoder);
+        existing = existing.updateFrom(updated, address, librarian);
         return saveUser(existing);
     }
 
     @Transactional
     public void deleteUser(Integer userId) {
-            userRepository.deleteById(userId);
+        userRepository.deleteById(userId);
     }
 
     @Transactional(readOnly = true)

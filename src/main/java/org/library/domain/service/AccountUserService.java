@@ -49,10 +49,10 @@ public class AccountUserService {
 
     @Transactional
     public void removeLibrarian(User user) {
-        if (!user.getUserRole().equals(UserRole.LIBRARIAN)){
+        if (!user.getUserRole().equals(UserRole.LIBRARIAN)) {
             throw new UserValidationException("User is not a librarian. User role: [%s]".formatted(user.getUserRole()));
         }
         librarianService.deleteLibrarian(user.getLibrarian().getLibrarianId());
-        userService.updateUser(user.getUserId());
+        userService.downgradeLibrarianToUser(user.getUserId());
     }
 }
