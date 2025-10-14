@@ -29,7 +29,7 @@ INSERT INTO users (user_name, name, surname, email, password, phone_number, memb
 ('user13', 'Kimberly', 'Jackson', 'kimberly.jackson13@example.com', '$2a$10$m3pyfknhYBRds0HUSP7tNOiIXGb8fpR/.PJmBxpsB/jRwZsZVKfuG', '1234567802', '2025-03-18', 'USER', 2, null),
 ('user14', 'Liam', 'White', 'liam.white14@example.com', '$2a$10$KzWfn8QzPx52TjqlQP8J4eTcDO7UmwJY.0VBsB12I0LdENHLF68EO', '1234567803', '2025-03-18', 'USER', 3, null),
 ('user15', 'Mia', 'Harris', 'mia.harris15@example.com', '$2a$10$0ntS0DBxPqaJbqJm0POEke/9H0u1hfYG7SJ.ZE2bu7TvsCvpXhOYy', '1234567804', '2025-03-18', 'USER', 1, null),
-('user16', 'Noah', 'Clark', 'noah.clark16@example.com', '$2a$10$/x8p6SWj.jrZDzt80hsbU.qmAdnqZVj8VIbulvxyQtIftn8nhG93.', '1234567805', '2025-03-18', 'USER', 1, null),
+('user16', 'Noah', 'Clark', 'noah.clark16@example.com', '$2a$10$/x8p6SWj.jrZDzt80hsbU.qmAdnqZVj8VIbulvxyQtIftn8nhG93.', '1234567805', '2025-03-18', 'USER', 4, null),
 ('user17', 'Olivia', 'Lewis', 'olivia.lewis17@example.com', '$2a$10$ioA/nZYGgdkln0j4CshJium.jwhqKXn.XgBaxJXxXMkUD4h3qOSJq', '1234567806', '2025-03-18', 'USER', 2, null),
 ('user18', 'Peter', 'Walker', 'peter.walker18@example.com', '$2a$10$nOb0SQ.O2GgxMXiFBeo7QOrcvUoWBwbudMVI5VNazWFMURCYIvSWa', '1234567807', '2025-03-18', 'USER', 7, null),
 ('user19', 'Quinn', 'Hall', 'quinn.hall19@example.com', '$2a$10$xbUhU98xheN46m8CZLOd.OSg7fAm2oTQub5eG83iS9h17u663f30q', '1234567808', '2025-03-18', 'USER', 8, null),

@@ -3,12 +3,12 @@ package org.library.domain.model;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 @With
 @Value
-@Builder
+@Builder(toBuilder = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(exclude = "users")
 public class Address {
@@ -22,9 +22,42 @@ public class Address {
     Set<User> users;
 
     public Set<User> getUsers() {
-        if (Objects.isNull(users)) {
-            return new HashSet<>();
-        }
-        return users;
+        return Optional.of(users).orElse(new HashSet<>());
+    }
+
+    public Address withAddedUser(User user) {
+        Set<User> update = new HashSet<>(this.getUsers());
+        update.add(user);
+        return withUsers(update);
+    }
+
+    public Address withRemovedUser(User user) {
+        Set<User> update = new HashSet<>(this.getUsers());
+        update.remove(user);
+        return withUsers(update);
+    }
+
+    public boolean isAddressChanged(Address update) {
+        return !this.getCity().equals(update.getCity())
+                || !this.getStreet().equals(update.getStreet())
+                || !this.getNumber().equals(update.getNumber())
+                || !this.getPostCode().equals(update.getPostCode());
+    }
+
+    public Address updateFrom(Address updated) {
+        return this.toBuilder()
+                .city(updated.getCity() != null
+                        ? updated.getCity()
+                        : this.city)
+                .street(updated.getStreet() != null
+                        ? updated.getStreet()
+                        : this.street)
+                .number(updated.getNumber() != null
+                        ? updated.getNumber()
+                        : this.number)
+                .postCode(updated.getPostCode() != null
+                        ? updated.getPostCode()
+                        : this.postCode)
+                .build();
     }
 }

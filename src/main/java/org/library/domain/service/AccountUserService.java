@@ -14,33 +14,32 @@ import org.springframework.transaction.annotation.Transactional;
 public class AccountUserService {
 
     private final UserService userService;
-    private final AddressManager addressManager;
+    private final AddressService addressService;
     private final LibrarianService librarianService;
 
     @Transactional
     public User createAccountUser(User user) {
-        Address address = addressManager.findOrCreateNewAddress(user);
+        Address address = addressService.createOrFindAddress(user.getAddress());
         Librarian librarian = librarianService.createOrUpdateLibrarian(user);
-        User savedUser = userService.createUser(user, librarian, address);
-        addressManager.addUserToAddress(savedUser, address);
-        return savedUser;
+        User saved = userService.createUser(user, librarian, address);
+        addressService.updateUserAddressAssociation(user,saved);
+        return saved;
     }
 
     @Transactional
     public User updateAccountUser(User updated) {
         User existing = userService.findById(updated.getUserId());
-        Address address = addressManager.updateOrCreateNewAddress(updated);
+        Address address = addressService.updateAddress(updated.getAddress());
         Librarian librarian = librarianService.createOrUpdateLibrarian(updated);
         User saved = userService.updateUser(existing, updated, address, librarian);
-        if (!existing.getAddress().getAddressId().equals(address.getAddressId())) {
-            addressManager.addUserToAddress(saved, address);
-        }
+        addressService.updateUserAddressAssociation(existing,saved);
+
         return saved;
     }
 
     @Transactional
     public void deleteAccountUser(User user) {
-        addressManager.dissociateUserFromCurrentAddress(user);
+        addressService.updateUserAddressAssociation(user,null);
         if (UserRole.LIBRARIAN.equals(user.getUserRole())) {
             librarianService.deleteLibrarian(user.getLibrarian().getLibrarianId());
         }

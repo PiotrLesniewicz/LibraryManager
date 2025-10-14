@@ -36,17 +36,17 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         // membershipDate is empty because it is set during newUser creation
 
         // given
-        Long initCountUser = userService.countUser();
+        long initialUserCount = userService.countUser();
         User newUser = DataTestFactory.userForNewAccount();
+
         assertThat(userService.findUserByEmail(newUser.getEmail())).isEmpty();
 
         // when
         User savedUser = accountUserService.createAccountUser(newUser);
 
         // then
-        Long updateCountUser = userService.countUser();
-        assertThat(initCountUser + 1).isEqualTo(updateCountUser);
-
+        long updatedUserCount = userService.countUser();
+        assertThat(updatedUserCount).isEqualTo(initialUserCount + 1);
 
         assertThat(savedUser.getUserId()).isNotNull();
         assertThat(savedUser.getAddress().getAddressId()).isNotNull();
@@ -59,158 +59,229 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
     }
 
     @Test
-    void shouldCreateNewUser_WhenAddressExists() {
+    void shouldReuseExistingAddress_WhenAddressAlreadyExists() {
         // given
-        Address addressExistInDB = addressService.findAddressById(1);
-        int initCountUsersForAddress = userService.findCountUsersForAddress(addressExistInDB.getAddressId());
-        User user = DataTestFactory.userWithExistingAddress(addressExistInDB);
-
-        // when
-        User savedUser = accountUserService.createAccountUser(user);
-
-        // then
-        assertThat(savedUser.getAddress()).isEqualTo(addressExistInDB);
-        int updateCountUsersForAddress = userService.findCountUsersForAddress(addressExistInDB.getAddressId());
-        assertThat(initCountUsersForAddress + 1).isEqualTo(updateCountUsersForAddress);
-    }
-
-    @Test
-    void shouldCreateLibrarian_WhenSavingNewUserWithLibrarianRole() {
-        // given
-        //hireDate is empty because it is set during newUser creation
-        User newUser = DataTestFactory.librarianUser();
-
-        Long initCountLibrarian = librarianService.countLibrarian();
+        Address existingAddress = addressService.findAddressById(1);
+        int initialUsersCountForAddress = userService.findCountUsersForAddress(existingAddress.getAddressId());
+        User newUser = DataTestFactory.userWithExistingAddress(existingAddress);
 
         // when
         User savedUser = accountUserService.createAccountUser(newUser);
 
         // then
+        assertThat(savedUser.getAddress()).isEqualTo(existingAddress);
+
+        int updatedUsersCountForAddress = userService.findCountUsersForAddress(existingAddress.getAddressId());
+        assertThat(updatedUsersCountForAddress).isEqualTo(initialUsersCountForAddress + 1);
+    }
+
+    @Test
+    void shouldCreateLibrarianRecord_WhenCreatingUserWithLibrarianRole() {
+        // hireDate is empty because it is set during newUser creation
+
+        // given
+        User newLibrarianUser = DataTestFactory.librarianUser();
+        long initialLibrarianCount = librarianService.countLibrarian();
+
+        // when
+        User savedUser = accountUserService.createAccountUser(newLibrarianUser);
+
+        // then
         assertThat(savedUser.getUserRole()).isEqualTo(UserRole.LIBRARIAN);
         assertThat(savedUser.getLibrarian().getLibrarianRole()).isEqualTo(LibrarianRole.ADMIN);
         assertThat(savedUser.getLibrarian().getHireDate()).isNotNull();
-        Long updateCountLibrarian = librarianService.countLibrarian();
-        assertThat(updateCountLibrarian).isEqualTo(initCountLibrarian + 1);
+
+        long updatedLibrarianCount = librarianService.countLibrarian();
+        assertThat(updatedLibrarianCount).isEqualTo(initialLibrarianCount + 1);
     }
 
     @Test
-    void shouldCreateLibrarian_WhenUpdatingUserWithLibrarianRole() {
+    void shouldCreateLibrarianRecord_WhenUpdatingUserToLibrarianRole() {
         // given
-        String email = "bob.williams4@example.com";
-        User existingUser = userService.findUserByEmail(email).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
+        String userEmail = "bob.williams4@example.com";
+        User existingUser = userService.findUserByEmail(userEmail)
+                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(userEmail)));
 
         assertThat(librarianService.findByUserId(existingUser.getUserId())).isEmpty();
-        Long initCountLibrarian = librarianService.countLibrarian();
-        User updateUser = existingUser.withUserRole(UserRole.LIBRARIAN).withLibrarian(Librarian.builder().librarianRole(LibrarianRole.TECHNIC).build());
+        long initialLibrarianCount = librarianService.countLibrarian();
+
+        User updatedUser = existingUser
+                .withUserRole(UserRole.LIBRARIAN)
+                .withLibrarian(Librarian.builder().librarianRole(LibrarianRole.TECHNIC).build());
 
         // when
-        User savedUser = accountUserService.updateAccountUser(updateUser);
+        User savedUser = accountUserService.updateAccountUser(updatedUser);
 
         // then
-        Long updateCountLibrarian = librarianService.countLibrarian();
         assertThat(savedUser.getUserRole()).isEqualTo(UserRole.LIBRARIAN);
         assertThat(savedUser.getLibrarian().getLibrarianRole()).isEqualTo(LibrarianRole.TECHNIC);
         assertThat(savedUser.getLibrarian().getHireDate()).isNotNull();
-        assertThat(initCountLibrarian + 1).isEqualTo(updateCountLibrarian);
+
+        long updatedLibrarianCount = librarianService.countLibrarian();
+        assertThat(updatedLibrarianCount).isEqualTo(initialLibrarianCount + 1);
     }
 
     @Test
-    void shouldCorrectlyUpdateAddress_WhenExistingUserHasNewAddress() {
+    void shouldUpdateAddressInPlace_WhenUserIsOnlyOneUsingAddress() {
         // given
-        String email = "jane.smith2@example.com";
-        User existingUser = userService.findUserByEmail(email).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
-
+        String userEmail = "grace.moore9@example.com";
+        User existingUser = userService.findUserByEmail(userEmail)
+                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(userEmail)));
 
         Integer addressId = existingUser.getAddress().getAddressId();
-        int initCountUsersForAddress = userService.findCountUsersForAddress(addressId);
+        int initialUsersCountForAddress = userService.findCountUsersForAddress(addressId);
+        assertThat(initialUsersCountForAddress).isEqualTo(1);
 
-        Address newAddress = DataTestFactory.differentAddress();
+        Address updatedAddressData = existingUser.getAddress()
+                .withCity("SoloCity")
+                .withStreet("SoloStreet")
+                .withNumber("77A")
+                .withPostCode("77-777");
 
-        User userUpdate = existingUser.withAddress(newAddress);
+        User userWithUpdatedAddress = existingUser.withAddress(updatedAddressData);
 
         // when
-        User savedUser = accountUserService.updateAccountUser(userUpdate);
+        User savedUser = accountUserService.updateAccountUser(userWithUpdatedAddress);
 
-        //then
-        assertThat(savedUser.getUserId()).isEqualTo(userUpdate.getUserId());
-        assertThat(savedUser.getEmail()).isEqualTo(userUpdate.getEmail());
-        assertThat(savedUser.getAddress().getAddressId()).isNotEqualTo(addressId);
-        assertThat(savedUser.getAddress().getCity()).isEqualTo(newAddress.getCity());
+        // then
+        assertThat(savedUser.getAddress().getAddressId()).isEqualTo(addressId);
+        assertThat(savedUser.getAddress().getCity()).isEqualTo("SoloCity");
 
-        int updateCountUsersForAddress = userService.findCountUsersForAddress(addressId);
-        int countUsersForNewAddress = userService.findCountUsersForAddress(savedUser.getAddress().getAddressId());
-        assertThat(initCountUsersForAddress - 1).isEqualTo(updateCountUsersForAddress);
-        assertThat(countUsersForNewAddress).isEqualTo(1);
+        int updatedUsersCountForAddress = userService.findCountUsersForAddress(addressId);
+        assertThat(updatedUsersCountForAddress).isEqualTo(1);
     }
 
     @Test
-    void shouldCorrectlyUpdateAccountUser_WhenAddressIsTheSame() {
+    void shouldCreateNewAddress_WhenUserUpdatesSharedAddress() {
+        // given: two users sharing the same address
+        String user1Email = "charlie.brown5@example.com";
+        String user2Email = "noah.clark16@example.com";
+
+        User user1 = userService.findUserByEmail(user1Email)
+                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(user1Email)));
+        User user2 = userService.findUserByEmail(user2Email)
+                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(user2Email)));
+
+        Address sharedAddress = user1.getAddress();
+        Integer sharedAddressId = sharedAddress.getAddressId();
+
+        assertThat(user2.getAddress().getAddressId()).isEqualTo(sharedAddressId);
+        int initialUsersCountForSharedAddress = sharedAddress.getUsers().size();
+        assertThat(initialUsersCountForSharedAddress).isEqualTo(2);
+
+        Address updatedAddressData = sharedAddress
+                .withCity("NewCity")
+                .withStreet("NewStreet")
+                .withNumber("99B")
+                .withPostCode("99-999");
+
+        User user1WithNewAddress = user1.withAddress(updatedAddressData);
+
+        // when: user1 updates their address
+        User savedUser1 = accountUserService.updateAccountUser(user1WithNewAddress);
+
+        // then: user1 has a new address
+        Address newAddress = addressService.findAddressById(savedUser1.getAddress().getAddressId());
+
+        assertThat(newAddress.getAddressId()).isNotEqualTo(sharedAddressId);
+        assertThat(newAddress.getCity()).isEqualTo("NewCity");
+        assertThat(newAddress.getUsers()).containsExactly(savedUser1);
+
+        // and: user2 still has the shared address
+        User user2AfterUpdate = userService.findUserByEmail(user2Email).orElseThrow();
+        assertThat(user2AfterUpdate.getAddress().getAddressId()).isEqualTo(sharedAddressId);
+
+        Address sharedAddressAfterUpdate = addressService.findAddressById(sharedAddressId);
+        assertThat(sharedAddressAfterUpdate.getUsers()).contains(user2AfterUpdate);
+        assertThat(sharedAddressAfterUpdate.getUsers()).doesNotContain(savedUser1);
+    }
+
+    @Test
+    void shouldUpdateUserData_WhenAddressRemainsUnchanged() {
         // given
-        String oldEmail = "noah.clark16@example.com";
+        String oldEmail = "quinn.hall19@example.com";
         String newEmail = "example@wp.pl";
         String newUserName = "exampleUserName";
-        User existingUser = userService.findUserByEmail(oldEmail).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(oldEmail)));
 
-        int initCountUsersForAddress = userService.findCountUsersForAddress(existingUser.getAddress().getAddressId());
+        User existingUser = userService.findUserByEmail(oldEmail)
+                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(oldEmail)));
+
+        Integer addressId = existingUser.getAddress().getAddressId();
+        int initialUsersCountForAddress = userService.findCountUsersForAddress(addressId);
 
         assertThat(userService.findUserByEmail(newEmail)).isEmpty();
         assertThat(userService.findUserByUserName(newUserName)).isEmpty();
 
-        User updateUser = existingUser.withEmail(newEmail).withUserName(newUserName);
+        User updatedUser = existingUser
+                .withEmail(newEmail)
+                .withUserName(newUserName);
 
         // when
-        User savedUser = accountUserService.updateAccountUser(updateUser);
+        User savedUser = accountUserService.updateAccountUser(updatedUser);
 
         // then
-        assertThat(savedUser.getUserId()).isEqualTo(updateUser.getUserId());
-        assertThat(savedUser.getUserName()).isEqualTo(updateUser.getUserName());
-        assertThat(savedUser.getEmail()).isEqualTo(updateUser.getEmail());
-        assertThat(savedUser.getMembershipDate()).isEqualTo(updateUser.getMembershipDate());
+        assertThat(savedUser.getUserId()).isEqualTo(updatedUser.getUserId());
+        assertThat(savedUser.getUserName()).isEqualTo(newUserName);
+        assertThat(savedUser.getEmail()).isEqualTo(newEmail);
+        assertThat(savedUser.getMembershipDate()).isEqualTo(updatedUser.getMembershipDate());
 
-        int updateCountUsersForAddress = userService.findCountUsersForAddress(savedUser.getAddress().getAddressId());
-        assertThat(initCountUsersForAddress).isEqualTo(updateCountUsersForAddress);
+        int updatedUsersCountForAddress = userService.findCountUsersForAddress(addressId);
+        assertThat(updatedUsersCountForAddress).isEqualTo(initialUsersCountForAddress);
 
-        assertThat(addressService.findByAddressByUserId(savedUser.getUserId()).getUsers()).extracting(User::getEmail).doesNotContain(existingUser.getEmail()).contains(savedUser.getEmail());
-        assertThat(addressService.findByAddressByUserId(savedUser.getUserId()).getUsers()).extracting(User::getUserName).doesNotContain(existingUser.getUserName()).contains(savedUser.getUserName());
+        Address addressAfterUpdate = addressService.findAddressById(addressId);
+        assertThat(addressAfterUpdate.getUsers())
+                .extracting(User::getEmail)
+                .doesNotContain(oldEmail)
+                .contains(newEmail);
+        assertThat(addressAfterUpdate.getUsers())
+                .extracting(User::getUserName)
+                .doesNotContain(existingUser.getUserName())
+                .contains(newUserName);
     }
 
     @Test
-    void shouldCorrectlyDeleteUserWithLibrarian() {
+    void shouldDeleteUserAndLibrarianRecord_WhenUserIsLibrarian() {
         // given
-        String email = "frank.wilson8@example.com";
-        User existingUser = userService.findUserByEmail(email).orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(email)));
+        String userEmail = "frank.wilson8@example.com";
+        User existingUser = userService.findUserByEmail(userEmail)
+                .orElseThrow(() -> new IllegalStateException("Expected test user [%s] not found. Check Flyway migration.".formatted(userEmail)));
+
+        Integer addressId = existingUser.getAddress().getAddressId();
+        Integer userId = existingUser.getUserId();
+
         assertThat(existingUser.getAddress().getUsers()).contains(existingUser);
 
         // when
         accountUserService.deleteAccountUser(existingUser);
 
         // then
-        assertThat(userService.findUserByEmail(email)).isEmpty();
+        assertThat(userService.findUserByEmail(userEmail)).isEmpty();
 
-        Set<User> usersForAddress = addressService.findAddressById(existingUser.getAddress().getAddressId()).getUsers();
+        Set<User> usersForAddressAfterDelete = addressService.findAddressById(addressId).getUsers();
+        assertThat(usersForAddressAfterDelete)
+                .isNotEmpty()
+                .doesNotContain(existingUser);
 
-        assertThat(usersForAddress).isNotEmpty().doesNotContain(existingUser);
-        Integer userId = existingUser.getUserId();
         assertThat(librarianService.findByUserId(userId)).isEmpty();
-
     }
 
     @Test
-    void shouldCorrectlyRemoveLibrarian() {
+    void shouldRemoveLibrarianRoleAndRecord_WhenChangingLibrarianToRegularUser() {
         // given
-        String email = "jack.thomas12@example.com";
-        User user = userService.findUserByEmail(email)
-                .orElseThrow(() -> new NotFoundUserException("User with email [%s] dose not exist".formatted(email)));
+        String userEmail = "jack.thomas12@example.com";
+        User existingLibrarian = userService.findUserByEmail(userEmail)
+                .orElseThrow(() -> new NotFoundUserException("User with email [%s] does not exist".formatted(userEmail)));
 
-        assertThat(user.getLibrarian()).isNotNull();
+        assertThat(existingLibrarian.getLibrarian()).isNotNull();
 
         // when
-        accountUserService.removeLibrarian(user);
+        accountUserService.removeLibrarian(existingLibrarian);
 
         // then
-        User userWithoutLibrarian = userService.findUserByEmail(email).orElseThrow(() -> new RuntimeException("User not found after update"));
+        User userAfterLibrarianRemoval = userService.findUserByEmail(userEmail)
+                .orElseThrow(() -> new RuntimeException("User not found after update"));
 
-        assertThat(userWithoutLibrarian.getLibrarian()).isNull();
-        assertThat(userWithoutLibrarian.getUserRole()).isEqualTo(UserRole.USER);
+        assertThat(userAfterLibrarianRemoval.getLibrarian()).isNull();
+        assertThat(userAfterLibrarianRemoval.getUserRole()).isEqualTo(UserRole.USER);
     }
 }
