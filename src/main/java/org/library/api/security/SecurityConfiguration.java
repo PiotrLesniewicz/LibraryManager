@@ -45,7 +45,7 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         authorization -> authorization
-                                .requestMatchers("/library/user", "/error").permitAll()
+                                .requestMatchers("/users", "/error").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(authenticationEntryPoint))

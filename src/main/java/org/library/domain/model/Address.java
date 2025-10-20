@@ -3,7 +3,6 @@ package org.library.domain.model;
 import lombok.*;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 @With
@@ -22,7 +21,10 @@ public class Address {
     Set<User> users;
 
     public Set<User> getUsers() {
-        return Optional.of(users).orElse(new HashSet<>());
+        if (users == null) {
+            return new HashSet<>();
+        }
+        return users;
     }
 
     public Address withAddedUser(User user) {

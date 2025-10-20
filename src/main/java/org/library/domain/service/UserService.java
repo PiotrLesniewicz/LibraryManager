@@ -65,6 +65,12 @@ public class UserService {
                 .map(userEntityMapper::mapFromEntity);
     }
 
+    public User findByIdWithDetails(Integer userId) {
+        return userRepository.findByIdWithDetails(userId)
+                .map(userEntityMapper::mapFromEntity)
+                .orElseThrow(() -> new NotFoundUserException("User with userId: [%s] does not exist".formatted(userId)));
+    }
+
     @Transactional(readOnly = true)
     public Long countUser() {
         return userRepository.count();

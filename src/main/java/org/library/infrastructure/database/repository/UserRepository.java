@@ -19,4 +19,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
             SELECT COUNT(u) FROM UserEntity u
             WHERE u.address.addressId = :addressId""")
     int findCountUsersForAddress(@Param("addressId") Integer addressId);
+
+    @Query("""
+            SELECT u FROM UserEntity u
+            LEFT JOIN FETCH u.address a
+            LEFT JOIN FETCH u.librarian l
+            WHERE u.userId = :userId""")
+    Optional<UserEntity> findByIdWithDetails(@Param("userId") Integer userId);
 }
