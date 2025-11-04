@@ -13,6 +13,8 @@ INSERT INTO librarian (role, hire_date) VALUES
 ('TECHNIC', '2023-05-15'), --user8
 ('ASSISTANT', '2021-09-20'); --user12
 
+
+-- password for user example: user1 - password1 etc.
 INSERT INTO users (user_name, name, surname, email, password, phone_number, membership_date, role, address_id, librarian_id) VALUES
 ('user1', 'John', 'Doe', 'john.doe1@example.com', '$2a$10$K4OZD/pA5dL0Hcd01keldOU6vmI4nkI3AaYLBEa2qHf42NMx39trW', '1234567890', '2025-03-18', 'USER', 1, null),
 ('user2', 'Jane', 'Smith', 'jane.smith2@example.com', '$2a$10$6IGNfzgi.kMMlEelTPsxeuKykQDYoV8T/9iqUmnfwCOrAMYXvId7e', '1234567891', '2025-03-18', 'USER', 2, null),
