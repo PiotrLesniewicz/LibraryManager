@@ -47,9 +47,7 @@ public class User {
                 .email(updated.getEmail() != null
                         ? updated.getEmail()
                         : this.email)
-                .phoneNumber(updated.getPhoneNumber() != null
-                        ? updated.getPhoneNumber()
-                        : this.phoneNumber)
+                .phoneNumber(resolvePhoneNumber(updated))
                 .userRole(librarian != null
                         ? UserRole.LIBRARIAN
                         : this.userRole)
@@ -60,5 +58,12 @@ public class User {
                         ? librarian
                         : this.librarian)
                 .build();
+    }
+
+    private String resolvePhoneNumber(User updated) {
+        if (updated.getPhoneNumber() != null) {
+            return updated.getPhoneNumber().isEmpty() ? null : updated.getPhoneNumber();
+        }
+        return this.phoneNumber;
     }
 }
