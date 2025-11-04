@@ -43,7 +43,7 @@ public class LibrarianService {
 
     @Transactional
     public void deleteLibrarian(Integer librarianId) {
-       librarianRepository.deleteById(librarianId);
+        librarianRepository.deleteById(librarianId);
     }
 
     public Librarian saveLibrarian(Librarian librarian) {

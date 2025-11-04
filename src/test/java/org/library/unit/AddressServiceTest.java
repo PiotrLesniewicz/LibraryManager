@@ -107,13 +107,14 @@ class AddressServiceTest {
     @Test
     void shouldReturnTheSameAddress_WhenAddressIsNotChanged() {
         // given
+        Integer userId = 200;
         Address existing = DataTestFactory.defaultAddress().withAddressId(1);
 
-        when(addressRepository.findById(existing.getAddressId())).thenReturn(Optional.of(new AddressEntity()));
+        when(addressRepository.findByUserId(userId)).thenReturn(Optional.of(new AddressEntity()));
         when(addressEntityMapper.mapFromEntity(any(AddressEntity.class))).thenReturn(existing);
 
         // when
-        Address result = addressService.updateAddress(existing);
+        Address result = addressService.updateAddress(userId,existing);
 
         // then
         Assertions.assertThat(result).isEqualTo(existing);
@@ -125,6 +126,7 @@ class AddressServiceTest {
     @Test
     void shouldReturnExistingAddress_WhenAddressIsChangedButAlreadyExists() {
         // given
+        Integer userId = 500;
         Address existing = DataTestFactory.defaultAddress().withAddressId(1);
         Address updated = existing.withCity("NewCity");
         Address existingInDB = updated.withAddressId(2);
@@ -137,7 +139,7 @@ class AddressServiceTest {
         when(addressEntityMapper.mapFromEntity(existingInDBEntity))
                 .thenReturn(existingInDB);
 
-        when(addressRepository.findById(existing.getAddressId()))
+        when(addressRepository.findByUserId(userId))
                 .thenReturn(Optional.of(existingEntity));
         when(addressRepository.findByCityAndStreetAndNumberAndPostCode(
                 updated.getCity(),
@@ -147,11 +149,11 @@ class AddressServiceTest {
         )).thenReturn(Optional.of(existingInDBEntity));
 
         // when
-        Address result = addressService.updateAddress(updated);
+        Address result = addressService.updateAddress(userId,updated);
 
         // then
         Assertions.assertThat(result).isEqualTo(existingInDB);
-        verify(addressRepository).findById(existing.getAddressId());
+        verify(addressRepository).findByUserId(userId);
         verify(addressRepository).findByCityAndStreetAndNumberAndPostCode(
                 updated.getCity(),
                 updated.getStreet(),
@@ -189,7 +191,7 @@ class AddressServiceTest {
                 .build();
 
         // Mock: finding existing address by ID returns the shared address
-        when(addressRepository.findById(existing.getAddressId()))
+        when(addressRepository.findByUserId(user1.getUserId()))
                 .thenReturn(Optional.of(existingEntity));
         when(addressEntityMapper.mapFromEntity(existingEntity))
                 .thenReturn(existing);
@@ -211,7 +213,7 @@ class AddressServiceTest {
                 .thenReturn(savedAddress);
 
         // when
-        Address result = addressService.updateAddress(updated);
+        Address result = addressService.updateAddress(user1.getUserId(), updated);
 
         // then
         // Verify that a new address was created instead of updating the existing one
@@ -220,7 +222,7 @@ class AddressServiceTest {
         Assertions.assertThat(result.getUsers()).isEmpty(); // No users initially
 
         // Verify repository interactions
-        verify(addressRepository).findById(existing.getAddressId());
+        verify(addressRepository).findByUserId(user1.getUserId());
         verify(addressRepository).findByCityAndStreetAndNumberAndPostCode(
                 updated.getCity(),
                 updated.getStreet(),

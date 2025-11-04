@@ -144,7 +144,7 @@ class LibrarianServiceTest {
         verify(librarianRepository).saveAndFlush(any(LibrarianEntity.class));
         assertThat(result).isEqualTo(expected);
     }
-    // check mock clock usage in create new librarian
+
     @Test
     void shouldCorrectlyCreateLibrarian_WhenLibrarianNonExistingInDB() {
         // given

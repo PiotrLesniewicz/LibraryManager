@@ -22,24 +22,24 @@ public class AccountUserService {
         Address address = addressService.createOrFindAddress(user.getAddress());
         Librarian librarian = librarianService.createOrUpdateLibrarian(user);
         User saved = userService.createUser(user, librarian, address);
-        addressService.updateUserAddressAssociation(user,saved);
+        addressService.updateUserAddressAssociation(user, saved);
         return saved;
     }
 
     @Transactional
     public User updateAccountUser(User updated) {
         User existing = userService.findById(updated.getUserId());
-        Address address = addressService.updateAddress(updated.getAddress());
+        Address address = addressService.updateAddress(updated.getUserId(), updated.getAddress());
         Librarian librarian = librarianService.createOrUpdateLibrarian(updated);
         User saved = userService.updateUser(existing, updated, address, librarian);
-        addressService.updateUserAddressAssociation(existing,saved);
+        addressService.updateUserAddressAssociation(existing, saved);
 
         return saved;
     }
 
     @Transactional
     public void deleteAccountUser(User user) {
-        addressService.updateUserAddressAssociation(user,null);
+        addressService.updateUserAddressAssociation(user, null);
         if (UserRole.LIBRARIAN.equals(user.getUserRole())) {
             librarianService.deleteLibrarian(user.getLibrarian().getLibrarianId());
         }

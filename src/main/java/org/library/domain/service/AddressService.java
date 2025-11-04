@@ -34,8 +34,8 @@ public class AddressService {
     // If the address is shared by multiple users, we create a new Address instance
     // instead of updating the existing one to avoid affecting other users.
     @Transactional
-    public Address updateAddress(Address updated) {
-        Address existing = findAddressById(updated.getAddressId());
+    public Address updateAddress(Integer userId, Address updated) {
+        Address existing = findAddressByUserId(userId);
         Address merge = existing.updateFrom(updated);
         if (!existing.isAddressChanged(merge)) {
             return existing;
@@ -82,6 +82,13 @@ public class AddressService {
                 .map(addressEntityMapper::mapFromEntity)
                 .orElseThrow(() -> new NotFoundAddressException("No address found for the address id: [%s]"
                         .formatted(addressId)));
+    }
+
+    private Address findAddressByUserId(Integer userId) {
+        return addressRepository.findByUserId(userId)
+                .map(addressEntityMapper::mapFromEntity)
+                .orElseThrow(() -> new NotFoundAddressException("No address found for the user id: [%s]"
+                        .formatted(userId)));
     }
 
     public Optional<Address> findAddressByFields(Address address) {
