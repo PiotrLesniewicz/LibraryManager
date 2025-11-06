@@ -45,4 +45,10 @@ public class UserController {
         User updatedUser = accountUserService.updateAccountUser(userToUpdate.withUserId(userDetails.userId()));
         return mapper.mapToDto(updatedUser);
     }
+
+    @DeleteMapping(ApiPaths.PROFILE)
+    public ResponseEntity<Void> deleteUser(@AuthenticationPrincipal LibraryUserDetails userDetails){
+        accountUserService.deleteAccountUser(userDetails.userId());
+        return ResponseEntity.noContent().build();
+    }
 }

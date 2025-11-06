@@ -252,7 +252,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         assertThat(existingUser.getAddress().getUsers()).contains(existingUser);
 
         // when
-        accountUserService.deleteAccountUser(existingUser);
+        accountUserService.deleteAccountUser(existingUser.getUserId());
 
         // then
         assertThat(userService.findUserByEmail(userEmail)).isEmpty();

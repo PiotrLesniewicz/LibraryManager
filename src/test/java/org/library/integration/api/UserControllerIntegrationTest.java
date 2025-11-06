@@ -81,7 +81,7 @@ class UserControllerIntegrationTest extends TestContainerConfig {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"GET", "PATCH"})
+    @ValueSource(strings = {"GET", "PATCH", "DELETE"})
     void shouldReturnUnauthorized_WhenNotAuthenticated(String httpMethod) throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.valueOf(httpMethod), ApiPaths.USER_PROFILE_ENDPOINT))
                 .andExpect(status().isUnauthorized());
@@ -127,6 +127,14 @@ class UserControllerIntegrationTest extends TestContainerConfig {
                         status().isOk(),
                         content().json(expected)
                 );
+    }
+
+    @Test
+    @WithUserDetails(value = "user15", userDetailsServiceBeanName = "libraryUserDetailsService")
+    void shouldReturn204_WhenDeleteAccount() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete(ApiPaths.USER_PROFILE_ENDPOINT))
+                .andDo(print())
+                .andExpect(status().isNoContent());
     }
 
     private RegistrationRequestDTO registrationRequestDTO() {

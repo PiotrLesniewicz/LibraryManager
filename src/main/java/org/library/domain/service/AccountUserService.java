@@ -38,7 +38,8 @@ public class AccountUserService {
     }
 
     @Transactional
-    public void deleteAccountUser(User user) {
+    public void deleteAccountUser(Integer userId) {
+        User user = userService.findById(userId);
         addressService.updateUserAddressAssociation(user, null);
         if (UserRole.LIBRARIAN.equals(user.getUserRole())) {
             librarianService.deleteLibrarian(user.getLibrarian().getLibrarianId());
