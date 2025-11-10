@@ -18,11 +18,15 @@ import java.time.Clock;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 @Service
 @AllArgsConstructor
 
 public class UserService {
+
+    private static final Pattern EMAIL_PATTERN =
+            Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
 
     private final UserRepository userRepository;
     private final UserEntityMapper userEntityMapper;
@@ -42,14 +46,14 @@ public class UserService {
     }
 
     @Transactional
-    public void downgradeLibrarianToUser(Integer userId) {
-        User exist = findById(userId);
-        User toUpdate = exist.downgradeUser();
+    public void downgradeLibrarianToUser(User user) {
+        User toUpdate = user.downgradeUser();
         saveUser(toUpdate);
     }
 
     @Transactional
     public User updateUser(User existing, User updated, Address address, Librarian librarian) {
+        validateDataUser(updated);
         existing = existing.updateFrom(updated, address, librarian);
         return saveUser(existing);
     }
@@ -59,12 +63,13 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    @Transactional(readOnly = true)
+
     public Optional<User> findUserByUserName(String userName) {
         return userRepository.findByUserName(userName)
                 .map(userEntityMapper::mapFromEntity);
     }
 
+    @Transactional
     public User findByIdWithDetails(Integer userId) {
         return userRepository.findByIdWithDetails(userId)
                 .map(userEntityMapper::mapFromEntity)
@@ -98,13 +103,33 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundUserException("User with userId: [%s] does not exist".formatted(userId)));
     }
 
+    public User findUserByEmailOrUserName(String input) {
+        if (isEmail(input)) {
+            return findUserByEmail(input).orElseThrow(
+                    () -> new NotFoundUserException("User with email: [%s] does not exist".formatted(input))
+            );
+        }
+        return findUserByUserName(input).orElseThrow(
+                () -> new NotFoundUserException("User with userName: [%s] does not exist".formatted(input))
+        );
+    }
+
     private void validateDataUser(User user) {
         if (Objects.isNull(user)) {
-            throw new UserValidationException("The user and address must not be empty!");
+            throw new UserValidationException("The user must not be empty!");
         }
         Optional<User> userWithEmail = findUserByEmail(user.getEmail());
-        if (userWithEmail.isPresent() && !userWithEmail.get().getUserId().equals(user.getUserId())) {
-            throw new UserValidationException("Email: [%s] is already in use by another user.".formatted(user.getEmail()));
+        if (userWithEmail.isPresent()) {
+            Integer existingUserId = userWithEmail.get().getUserId();
+            Integer currentUserId = user.getUserId();
+
+            if (Objects.isNull(currentUserId) || !Objects.equals(existingUserId, currentUserId)) {
+                throw new UserValidationException("Email: [%s] is already in use by another user.".formatted(user.getEmail()));
+            }
         }
+    }
+
+    private boolean isEmail(String input) {
+        return EMAIL_PATTERN.matcher(input).matches();
     }
 }

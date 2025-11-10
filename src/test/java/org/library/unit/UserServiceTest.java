@@ -152,13 +152,11 @@ class UserServiceTest {
         // given
         User userWithLibrarian = DataTestFactory.librarianUser();
 
-        when(userRepository.findById(userWithLibrarian.getUserId()))
-                .thenReturn(Optional.of(new UserEntity()));
         when(userEntityMapper.mapFromEntity(any()))
                 .thenReturn(userWithLibrarian);
 
         // when
-        userService.downgradeLibrarianToUser(userWithLibrarian.getUserId());
+        userService.downgradeLibrarianToUser(userWithLibrarian);
 
         // then
         ArgumentCaptor<User> captor = ArgumentCaptor.forClass(User.class);
@@ -174,7 +172,7 @@ class UserServiceTest {
         // given, when, then
         assertThatThrownBy(() -> userService.createUser(null, null, null))
                 .isInstanceOf(UserValidationException.class)
-                .hasMessageContaining("The user and address must not be empty!");
+                .hasMessageContaining("The user must not be empty!");
     }
 
     @Test
@@ -194,13 +192,26 @@ class UserServiceTest {
     void shouldThrowException_WhenCreatingUserWithExistingEmail() {
         // given
 
-        User user = DataTestFactory.defaultUser().withUserId(2);
+        User user = DataTestFactory.defaultUser();
         User existingUser = User.builder().userId(10).email(user.getEmail()).build();
         when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(new UserEntity()));
         when(userEntityMapper.mapFromEntity(any(UserEntity.class))).thenReturn(existingUser);
 
         // when, then
         assertThatThrownBy(() -> userService.createUser(user, null, DataTestFactory.defaultAddress()))
+                .isInstanceOf(UserValidationException.class)
+                .hasMessageContaining("Email: [%s] is already in use by another user.".formatted(user.getEmail()));
+    }
+
+    @Test
+    void shouldThrowException_WhenUpdatingUserWithExistingEmail(){
+        // given
+        User user = DataTestFactory.defaultUser().withUserId(10);
+        User conflicting = User.builder().email(user.getEmail()).build();
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(new UserEntity()));
+        when(userEntityMapper.mapFromEntity(any(UserEntity.class))).thenReturn(conflicting);
+        // when, then
+        assertThatThrownBy(() -> userService.updateUser(conflicting, user, null, null))
                 .isInstanceOf(UserValidationException.class)
                 .hasMessageContaining("Email: [%s] is already in use by another user.".formatted(user.getEmail()));
     }

@@ -110,7 +110,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
                 .withLibrarian(Librarian.builder().librarianRole(LibrarianRole.TECHNIC).build());
 
         // when
-        User savedUser = accountUserService.updateAccountUser(updatedUser);
+        User savedUser = accountUserService.updateAccountUser(updatedUser, userEmail);
 
         // then
         assertThat(savedUser.getUserRole()).isEqualTo(UserRole.LIBRARIAN);
@@ -141,7 +141,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         User userWithUpdatedAddress = existingUser.withAddress(updatedAddressData);
 
         // when
-        User savedUser = accountUserService.updateAccountUser(userWithUpdatedAddress);
+        User savedUser = accountUserService.updateAccountUser(userWithUpdatedAddress, userEmail);
 
         // then
         assertThat(savedUser.getAddress().getAddressId()).isEqualTo(addressId);
@@ -178,7 +178,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         User user1WithNewAddress = user1.withAddress(updatedAddressData);
 
         // when: user1 updates their address
-        User savedUser1 = accountUserService.updateAccountUser(user1WithNewAddress);
+        User savedUser1 = accountUserService.updateAccountUser(user1WithNewAddress, user1Email);
 
         // then: user1 has a new address
         Address newAddress = addressService.findAddressById(savedUser1.getAddress().getAddressId());
@@ -217,7 +217,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
                 .withUserName(newUserName);
 
         // when
-        User savedUser = accountUserService.updateAccountUser(updatedUser);
+        User savedUser = accountUserService.updateAccountUser(updatedUser, existingUser.getUserId());
 
         // then
         assertThat(savedUser.getUserId()).isEqualTo(updatedUser.getUserId());
@@ -275,7 +275,7 @@ class AccountUserServiceIntegrationTest extends TestContainerConfig {
         assertThat(existingLibrarian.getLibrarian()).isNotNull();
 
         // when
-        accountUserService.removeLibrarian(existingLibrarian);
+        accountUserService.removeLibrarian(userEmail);
 
         // then
         User userAfterLibrarianRemoval = userService.findUserByEmail(userEmail)
