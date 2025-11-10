@@ -42,12 +42,12 @@ public class UserController {
     public UserDTO updateLoggedUserInfo(@AuthenticationPrincipal LibraryUserDetails userDetails,
                                         @RequestBody UpdateUserDTO userDTO) {
         User userToUpdate = mapper.mapFromDto(userDTO);
-        User updatedUser = accountUserService.updateAccountUser(userToUpdate.withUserId(userDetails.userId()));
+        User updatedUser = accountUserService.updateAccountUser(userToUpdate, userDetails.userId());
         return mapper.mapToDto(updatedUser);
     }
 
     @DeleteMapping(ApiPaths.PROFILE)
-    public ResponseEntity<Void> deleteUser(@AuthenticationPrincipal LibraryUserDetails userDetails){
+    public ResponseEntity<Void> deleteUser(@AuthenticationPrincipal LibraryUserDetails userDetails) {
         accountUserService.deleteAccountUser(userDetails.userId());
         return ResponseEntity.noContent().build();
     }
