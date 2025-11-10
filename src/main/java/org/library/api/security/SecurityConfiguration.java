@@ -46,6 +46,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(
                         authorization -> authorization
                                 .requestMatchers("/users", "/error").permitAll()
+                                .requestMatchers("/admin/**").hasRole("LIBRARIAN")
                                 .anyRequest().authenticated()
                 )
                 .httpBasic(httpBasic -> httpBasic.authenticationEntryPoint(authenticationEntryPoint))

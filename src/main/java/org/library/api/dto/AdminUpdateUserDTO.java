@@ -1,19 +1,17 @@
 package org.library.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import org.library.domain.model.LibrarianRole;
 import org.library.domain.model.UserRole;
+import org.openapitools.jackson.nullable.JsonNullable;
 
-public record AdminRegistrationRequestDTO(
+public record AdminUpdateUserDTO(
         UserRole userRole,
         LibrarianRole librarianRole,
-        String password,
         String userName,
         String name,
         String surname,
         String email,
-        @JsonInclude(JsonInclude.Include.ALWAYS)
-        String phoneNumber,
+        JsonNullable<String> phoneNumber,
         String city,
         String street,
         String number,

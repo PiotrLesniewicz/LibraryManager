@@ -1,12 +1,7 @@
 package org.library.api.mapper;
 
-import org.library.api.dto.AdminRegistrationRequestDTO;
-import org.library.api.dto.RegistrationRequestDTO;
-import org.library.api.dto.UpdateUserDTO;
-import org.library.api.dto.UserDTO;
-import org.library.domain.model.Address;
-import org.library.domain.model.Librarian;
-import org.library.domain.model.User;
+import org.library.api.dto.*;
+import org.library.domain.model.*;
 import org.mapstruct.*;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -27,12 +22,25 @@ public interface UserDTOMapper {
     @Mapping(source = "postCode", target = "address.postCode")
     User mapFromDto(UpdateUserDTO userDTO);
 
+    @Mapping(source = "librarianRole", target = "librarian.librarianRole")
+    @Mapping(source = "phoneNumber", target = "phoneNumber", qualifiedByName = "unwrap")
+    @Mapping(source = "city", target = "address.city")
+    @Mapping(source = "street", target = "address.street")
+    @Mapping(source = "number", target = "address.number")
+    @Mapping(source = "postCode", target = "address.postCode")
+    User mapFromDto(AdminUpdateUserDTO userDTO);
+
     @Mapping(source = "city", target = "address.city")
     @Mapping(source = "street", target = "address.street")
     @Mapping(source = "number", target = "address.number")
     @Mapping(source = "postCode", target = "address.postCode")
     User mapFromDto(RegistrationRequestDTO registrationRequestDTO);
 
+    @Mapping(source = "librarianRole", target = "librarian.librarianRole")
+    @Mapping(source = "city", target = "address.city")
+    @Mapping(source = "street", target = "address.street")
+    @Mapping(source = "number", target = "address.number")
+    @Mapping(source = "postCode", target = "address.postCode")
     User mapFromDto(AdminRegistrationRequestDTO registrationRequestDTO);
 
     /**
