@@ -118,15 +118,32 @@ public class UserService {
         if (Objects.isNull(user)) {
             throw new UserValidationException("The user must not be empty!");
         }
-        Optional<User> userWithEmail = findUserByEmail(user.getEmail());
-        if (userWithEmail.isPresent()) {
-            Integer existingUserId = userWithEmail.get().getUserId();
-            Integer currentUserId = user.getUserId();
+        validateEmailUniqueness(user);
+        validateUserNameUniqueness(user);
+    }
 
-            if (Objects.isNull(currentUserId) || !Objects.equals(existingUserId, currentUserId)) {
+    private void validateEmailUniqueness(User user) {
+        if (user.getEmail() != null) {
+            Optional<User> userWithEmail = findUserByEmail(user.getEmail());
+            if (userWithEmail.isPresent() && isDifferentUser(userWithEmail.get(), user)) {
                 throw new UserValidationException("Email: [%s] is already in use by another user.".formatted(user.getEmail()));
             }
         }
+    }
+
+    private void validateUserNameUniqueness(User user) {
+        if (user.getUserName() != null) {
+            Optional<User> userWithUserName = findUserByUserName(user.getUserName());
+            if (userWithUserName.isPresent() && isDifferentUser(userWithUserName.get(), user)) {
+                throw new UserValidationException("UserName: [%s] is already in use by another user.".formatted(user.getUserName()));
+            }
+        }
+    }
+
+    private boolean isDifferentUser(User existingUser, User currentUser) {
+        Integer existingUserId = existingUser.getUserId();
+        Integer currentUserId = currentUser.getUserId();
+        return Objects.isNull(currentUserId) || !Objects.equals(existingUserId, currentUserId);
     }
 
     private boolean isEmail(String input) {

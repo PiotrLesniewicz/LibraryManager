@@ -101,13 +101,17 @@ class UserServiceTest {
     @Test
     void shouldUpdateUserDetails_WithoutLibrarian() {
         // given
+        Integer userId = 10;
+        String userName = "newUserName";
+        String name = "NewName";
+        String surname = "NewSurname";
         User existingUser = DataTestFactory.defaultUser()
-                .withUserId(10)
+                .withUserId(userId)
                 .withMembershipDate(LocalDate.of(2020, 10, 11));
         User updatedUser = existingUser
-                .withUserName("newUserName")
-                .withName("NewName")
-                .withSurname("NewSurname");
+                .withUserName(userName)
+                .withName(name)
+                .withSurname(surname);
 
         when(userEntityMapper.mapToEntity(any(User.class))).thenReturn(new UserEntity());
         when(userRepository.saveAndFlush(any(UserEntity.class))).thenReturn(new UserEntity());
@@ -117,10 +121,10 @@ class UserServiceTest {
         User result = userService.updateUser(existingUser, updatedUser, null, null);
 
         // then
-        assertThat(result.getUserId()).isEqualTo(10);
-        assertThat(result.getUserName()).isEqualTo("newUserName");
-        assertThat(result.getName()).isEqualTo("NewName");
-        assertThat(result.getSurname()).isEqualTo("NewSurname");
+        assertThat(result.getUserId()).isEqualTo(userId);
+        assertThat(result.getUserName()).isEqualTo(userName);
+        assertThat(result.getName()).isEqualTo(name);
+        assertThat(result.getSurname()).isEqualTo(surname);
         assertThat(result.getMembershipDate()).isEqualTo(LocalDate.of(2020, 10, 11));
     }
 
@@ -191,28 +195,110 @@ class UserServiceTest {
     @Test
     void shouldThrowException_WhenCreatingUserWithExistingEmail() {
         // given
+        User existingUser = DataTestFactory.defaultUser();
+        User conflictingUser = User.builder().userId(10).email(existingUser.getEmail()).build();
 
-        User user = DataTestFactory.defaultUser();
-        User existingUser = User.builder().userId(10).email(user.getEmail()).build();
-        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(new UserEntity()));
-        when(userEntityMapper.mapFromEntity(any(UserEntity.class))).thenReturn(existingUser);
+        when(userRepository.findByEmail(existingUser.getEmail())).thenReturn(Optional.of(new UserEntity()));
+        when(userEntityMapper.mapFromEntity(any(UserEntity.class))).thenReturn(conflictingUser);
+
 
         // when, then
-        assertThatThrownBy(() -> userService.createUser(user, null, DataTestFactory.defaultAddress()))
+        assertThatThrownBy(() -> userService.createUser(existingUser, null, DataTestFactory.defaultAddress()))
                 .isInstanceOf(UserValidationException.class)
-                .hasMessageContaining("Email: [%s] is already in use by another user.".formatted(user.getEmail()));
+                .hasMessageContaining("Email: [%s] is already in use by another user.".formatted(existingUser.getEmail()));
+
+        verify(userRepository, never()).saveAndFlush(any());
     }
 
     @Test
-    void shouldThrowException_WhenUpdatingUserWithExistingEmail(){
+    void shouldThrowException_WhenUpdatingUserWithExistingEmail() {
         // given
-        User user = DataTestFactory.defaultUser().withUserId(10);
-        User conflicting = User.builder().email(user.getEmail()).build();
-        when(userRepository.findByEmail(user.getEmail())).thenReturn(Optional.of(new UserEntity()));
-        when(userEntityMapper.mapFromEntity(any(UserEntity.class))).thenReturn(conflicting);
+        User existingUser = DataTestFactory.defaultUser().withUserId(5);
+        User conflictingUser = DataTestFactory.defaultUser().withUserId(10).withEmail(existingUser.getEmail());
+
+        when(userRepository.findByEmail(conflictingUser.getEmail())).thenReturn(Optional.of(new UserEntity()));
+        when(userEntityMapper.mapFromEntity(any(UserEntity.class))).thenReturn(existingUser);
+
         // when, then
-        assertThatThrownBy(() -> userService.updateUser(conflicting, user, null, null))
+        assertThatThrownBy(() -> userService.updateUser(existingUser, conflictingUser, null, null))
                 .isInstanceOf(UserValidationException.class)
-                .hasMessageContaining("Email: [%s] is already in use by another user.".formatted(user.getEmail()));
+                .hasMessageContaining("Email: [%s] is already in use by another user.".formatted(conflictingUser.getEmail()));
+
+        verify(userRepository, never()).saveAndFlush(any());
+    }
+
+    @Test
+    void shouldThrowException_WhenCreatingUserWithExistingUserName() {
+        // given
+        User existingUser = DataTestFactory.defaultUser();
+        User conflictingUser = User.builder().userId(10).userName(existingUser.getUserName()).build();
+
+        when(userRepository.findByEmail(existingUser.getEmail())).thenReturn(Optional.empty());
+        when(userRepository.findByUserName(existingUser.getUserName())).thenReturn(Optional.of(new UserEntity()));
+        when(userEntityMapper.mapFromEntity(any(UserEntity.class))).thenReturn(conflictingUser);
+
+        // when, then
+        assertThatThrownBy(() -> userService.createUser(existingUser, null, DataTestFactory.defaultAddress()))
+                .isInstanceOf(UserValidationException.class)
+                .hasMessageContaining("UserName: [%s] is already in use by another user.".formatted(existingUser.getUserName()));
+
+        verify(userRepository, never()).saveAndFlush(any());
+    }
+
+    @Test
+    void shouldThrowException_WhenUpdatingUserWithExistingUserName() {
+        // given
+        User existingUser = DataTestFactory.defaultUser().withUserId(5);
+        User conflictingUser = User.builder()
+                .userName(existingUser.getUserName())
+                .build();
+
+        when(userRepository.findByUserName(conflictingUser.getUserName())).thenReturn(Optional.of(new UserEntity()));
+        when(userEntityMapper.mapFromEntity(any(UserEntity.class))).thenReturn(existingUser);
+
+
+        // when, then
+        assertThatThrownBy(() -> userService.updateUser(existingUser, conflictingUser, null, null))
+                .isInstanceOf(UserValidationException.class)
+                .hasMessageContaining("UserName: [%s] is already in use by another user.".formatted(conflictingUser.getUserName()));
+
+        verify(userRepository, never()).saveAndFlush(any());
+    }
+
+    @Test
+    void shouldNotThrowException_WhenUpdatingUserWithOwnExistingEmail() {
+        // given
+        String email = "my.unique@email.com";
+        User existingUser = DataTestFactory.defaultUser().withUserId(5).withEmail(email);
+        when(userRepository.findByEmail(existingUser.getEmail())).thenReturn(Optional.of(new UserEntity()));
+        when(userRepository.findByUserName(existingUser.getUserName())).thenReturn(Optional.of(new UserEntity()));
+        when(userEntityMapper.mapToEntity(any(User.class))).thenReturn(new UserEntity());
+        when(userRepository.saveAndFlush(any(UserEntity.class))).thenReturn(new UserEntity());
+        when(userEntityMapper.mapFromEntity(any())).thenReturn(existingUser);
+
+        // when
+        User result = userService.updateUser(existingUser, existingUser, null, null);
+
+        // then
+        verify(userRepository, times(1)).saveAndFlush(any());
+        assertThat(result.getEmail()).isEqualTo(email);
+    }
+
+    @Test
+    void shouldNotThrowException_WhenUpdatingUserWithOwnExistingUserName() {
+        // given
+        String userName = "Lolotolo";
+        User existingUser = DataTestFactory.defaultUser().withUserId(5).withUserName(userName);
+        when(userRepository.findByUserName(existingUser.getUserName())).thenReturn(Optional.of(new UserEntity()));
+        when(userEntityMapper.mapToEntity(any(User.class))).thenReturn(new UserEntity());
+        when(userRepository.saveAndFlush(any(UserEntity.class))).thenReturn(new UserEntity());
+        when(userEntityMapper.mapFromEntity(any())).thenReturn(existingUser);
+
+        // when
+        User result = userService.updateUser(existingUser, existingUser, null, null);
+
+        // then
+        verify(userRepository, times(1)).saveAndFlush(any());
+        assertThat(result.getUserName()).isEqualTo(userName);
     }
 }
